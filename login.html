@@ -6,7 +6,7 @@
     <title>APOLLO-VI - Inicio De Sesión</title>
 
     <!-- Enlace - carpeta css -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -14,19 +14,20 @@
         <h1>APOLLO-VI</h1>
         <p>Monitoreo de Salud de Astronautas</p>
 
-        <form id="form-login" action="php/login.php" method="POST">
-            <div class="input-group">
-                <label for="input-nombre">Nombre:</label>
-                <input type="text" id="input-nombre" name="nombre">
+        <form id="form-login" action="php/login.php" method="POST" autocomplete="off">
+            <div class="search-wrapper">
+                <input type="text" id="input-nombre" name="nombre" placeholder="Nombre Búsqueda" required>
+                
+                <!--coincidencias de nombres desplegables -->
+                <ul id="lista-coincidencias" class="dropdown-list"></ul>
             </div>
 
-            <button type="submit" id="btn-login">Ingresar al Sistema</button>
+            <button type="submit" id="btn-login" disabled>Ingresar al sistema</button>
         </form>
 
         <div id="contenedor-alertas"></div>
     </main>
 
-    <!-- Enlace - script de JS -->
     <script src="js/main.js"></script>
 </body>
 </html>
