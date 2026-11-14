@@ -1,6 +1,7 @@
 /* ==========================================
-   1. ESTILOS DE LOGIN (Estilo de tu compañera)
+   COMPONENTES DEL LOGIN - APOLLO-VI
    ========================================== */
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -8,7 +9,8 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body {
+/* Fondo exclusivo para la vista de login */
+body.login-body {
     background-color: #0b0d17;
     color: #ffffff;
     min-height: 100vh;
@@ -17,41 +19,50 @@ body {
     align-items: center;
 }
 
-.login-container {
+.login-main-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.login-card {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
 }
 
-h1 {
+.login-title {
     letter-spacing: 3px;
     margin-bottom: 5px;
+    font-size: 2rem;
 }
 
-p {
+.login-subtitle {
     color: #a0a8c0;
     font-size: 0.9rem;
     margin-bottom: 30px;
 }
 
-#form-login {
+.login-form {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+/* Contenedor del buscador */
 .search-wrapper {
     position: relative;
     width: 100%;
     margin-bottom: 20px;
 }
 
-#input-nombre {
+/* Componente de Input Estilo Píldora */
+.apollo-input {
     width: 100%;
     padding: 14px 24px;
     border-radius: 50px;
@@ -64,11 +75,12 @@ p {
     transition: box-shadow 0.3s ease;
 }
 
-#input-nombre:focus {
+.apollo-input:focus {
     box-shadow: 0 0 12px rgba(124, 77, 255, 0.5);
 }
 
-.dropdown-list {
+/* Componente de Lista Desplegable (Coincidencias) con Scroll Limpio */
+.apollo-dropdown {
     list-style: none;
     width: 100%;
     margin-top: 8px;
@@ -77,15 +89,18 @@ p {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    
+    /* Ocultar barra de scroll */
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
 
-.dropdown-list::-webkit-scrollbar {
+.apollo-dropdown::-webkit-scrollbar {
     display: none;
 }
 
-.dropdown-list li {
+/* Elementos individuales de la lista desplegable */
+.apollo-dropdown li {
     padding: 12px 20px;
     border-radius: 50px;
     border: 1px solid #3a415a;
@@ -96,7 +111,13 @@ p {
     transition: all 0.2s ease;
 }
 
-#btn-login {
+.apollo-dropdown li:hover {
+    background-color: #7c4dff;
+    border-color: #7c4dff;
+}
+
+/* Componente de Botón Principal */
+.apollo-btn {
     width: 100%;
     padding: 14px 24px;
     border-radius: 50px;
@@ -106,14 +127,20 @@ p {
     font-weight: bold;
     font-size: 1rem;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-#btn-login:hover {
+.apollo-btn:hover:not(:disabled) {
     box-shadow: 0 0 12px rgba(0, 229, 255, 0.6);
     transform: translateY(-2px);
 }
 
+.apollo-btn:disabled {
+    background-color: transparent;
+    border-color: #3a415a;
+    color: #5c6685;
+    cursor: not-allowed;
+}
 
 /* ==========================================
    2. ESTILOS DEL DASHBOARD (Tu distribución)
