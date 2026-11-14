@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APOLLO-VI - Panel de Monitoreo</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- CONTENEDOR PRINCIPAL DE LAS 3 COLUMNAS SUPERIORES -->
+    <main class="main-grid">
+
+        <!-- 1. BARRA IZQUIERDA DE DATOS (Post-its rosas) -->
+        <aside id="panel-datos-izquierda" class="sidebar-datos">
+            <div id="card-name" class="info-box">
+                <h3>NAME</h3>
+                <p id="astronauta-nombre">Cmdt. Alex Rivera</p>
+            </div>
+
+            <div id="card-personal-data" class="info-box">
+                <h3>PERSONAL DATA</h3>
+                <ul>
+                    <li>Edad: <span id="dato-edad">34</span> años</li>
+                    <li>Sexo: <span id="dato-sexo">F</span></li>
+                    <li>Tipo Sangre: <span id="dato-sangre">O+</span></li>
+                </ul>
+            </div>
+
+            <div id="card-mission-data" class="info-box">
+                <h3>MISSION DATA</h3>
+                <ul>
+                    <li>Misión: <span id="dato-mision">Artemis / Marte</span></li>
+                    <li>Días en órbita: <span id="dato-dias">45</span></li>
+                    <li>Días seguros rest.: <span id="dato-dias-seguros">135</span></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- 2. ESPACIO CENTRAL PARA LA IMAGEN DEL CUERPO HUMANO -->
+        <section id="panel-cuerpo-central" class="cuerpo-container">
+            <div id="mapa-corporal" class="avatar-wrapper">
+                <!-- Aquí va la imagen o SVG interactivo del cuerpo humano -->
+                <img src="img/cuerpo-humano.png" alt="Figura del cuerpo humano" id="img-cuerpo">
+                
+            </div>
+        </section>
+
+        <!-- 3. TERCER ESPACIO (DERECHA): TABLA DE SISTEMAS Y DIAGNÓSTICO -->
+        <section id="panel-metricas-derecha" class="metricas-container">
+            
+            <!-- Tabla / Lista de indicadores (Sueño, Corazón, Óseo, Radiación, Músculos) -->
+            <div class="tabla-sistemas">
+                
+                <div class="fila-sistema" id="sistema-sueno">
+                    <div class="sistema-titulo">
+                        <strong>Sueño</strong>
+                        <small>(wearable)</small>
+                    </div>
+                    <div class="sistema-detalle">
+                        <p id="val-sueno">Ritmo circadiano, duración, latencia, eficiencia</p>
+                        <span class="diag-inline" id="diag-sueno">Diag: Calidad óptima</span>
+                    </div>
+                </div>
+
+                <div class="fila-sistema" id="sistema-corazon">
+                    <div class="sistema-titulo">
+                        <strong>Corazón</strong>
+                        <small>(pulsera)</small>
+                    </div>
+                    <div class="sistema-detalle">
+                        <p id="val-corazon">Frecuencia cardíaca: 72 bpm | Gasto energético</p>
+                        <span class="diag-inline" id="diag-corazon">Diag: Estado estable</span>
+                    </div>
+                </div>
+
+                <div class="fila-sistema" id="sistema-oseo">
+                    <div class="sistema-titulo">
+                        <strong>Óseo</strong>
+                    </div>
+                    <div class="sistema-detalle">
+                        <p id="val-oseo">Densidad ósea, densitometría, factor riesgo</p>
+                        <span class="diag-inline" id="diag-oseo">Diag: Estado normal</span>
+                    </div>
+                </div>
+
+                <div class="fila-sistema" id="sistema-radiacion">
+                    <div class="sistema-titulo">
+                        <strong>Radiación</strong>
+                    </div>
+                    <div class="sistema-detalle">
+                        <p id="val-radiacion">Porcentaje cáncer: 0.8% (Límite: 3%)</p>
+                        <span class="diag-inline alerta-verde" id="diag-radiacion">Diag: Sin alertas</span>
+                    </div>
+                </div>
+
+                <div class="fila-sistema" id="sistema-musculos">
+                    <div class="sistema-titulo">
+                        <strong>Músculos</strong>
+                    </div>
+                    <div class="sistema-detalle">
+                        <p id="val-musculos">Masa muscular, tejido graso, cambio masa</p>
+                        <span class="diag-inline" id="diag-musculos">Diag: Estado músculos OK</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Cuadro inferior verde: Diagnóstico General 
+            <div id="caja-diagnostico-general" class="diagnostico-box">
+                <h3>Diagnóstico</h3>
+                <p id="texto-diagnostico">Todos los sistemas dentro de parámetros nominales. Mantener rutina de ejercicio diario.</p>
+            </div> -->
+
+        </section>
+
+    </main>
+
+    <!-- 4. BARRA INFERIOR DE NAVEGACIÓN (Post-its de abajo) -->
+    <footer id="barra-inferior" class="bottom-nav">
+        <button id="btn-exit" class="nav-btn btn-exit">Exit</button>
+        <button id="btn-inicio" class="nav-btn active">Inicio</button>
+        <button id="btn-recreativas" class="nav-btn">Actividades recreativas</button>
+        <button id="btn-obligatorias" class="nav-btn">Actividades obligatorias</button>
+        <button id="btn-notificaciones" class="nav-btn">Notificaciones</button>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
