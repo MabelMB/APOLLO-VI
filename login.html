@@ -8,26 +8,29 @@
     <!-- Enlace - carpeta css -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="login-body">
 
-    <main class="login-container">
-        <h1>APOLLO-VI</h1>
-        <p>Monitoreo de Salud de Astronautas</p>
+    <main class="login-main-container">
+        <div class="login-card">
+            <h1 class="login-title">APOLLO-VI</h1>
+            <p class="login-subtitle">Monitoreo de Salud de Astronautas</p>
 
-        <form id="form-login" action="php/login.php" method="POST" autocomplete="off">
-            <div class="search-wrapper">
-                <input type="text" id="input-nombre" name="nombre" placeholder="Nombre Búsqueda" required>
-                
-                <!--coincidencias de nombres desplegables -->
-                <ul id="lista-coincidencias" class="dropdown-list"></ul>
-            </div>
+            <form id="form-login" class="login-form" action="php/login.php" method="POST" autocomplete="off">
+                <div class="search-wrapper">
+                    <input type="text" id="input-nombre" class="apollo-input" name="nombre" placeholder="Nombre Búsqueda" required>
+                    
+                    <!-- Lista de coincidencias con clases de componentes -->
+                    <ul id="lista-coincidencias" class="apollo-dropdown"></ul>
+                </div>
 
-            <button type="submit" id="btn-login" disabled>Ingresar al sistema</button>
-        </form>
+                <button type="submit" id="btn-login" class="apollo-btn" disabled>Ingresar al sistema</button>
+            </form>
 
-        <div id="contenedor-alertas"></div>
+            <div id="contenedor-alertas"></div>
+        </div>
     </main>
 
+    <!-- Enlace - script de JS -->
     <script src="js/main.js"></script>
 </body>
 </html>
