@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const inputClave = document.getElementById('input-nombre'); 
+    const inputClave = document.getElementById('input-clave'); 
     const listaDropdown = document.querySelector('.dropdown-list');
     const btnLogin = document.getElementById('btn-login');
     const formLogin = document.getElementById('form-login');
