@@ -156,20 +156,21 @@ try {
                 // FIX #7: coma sobrante después de a.estadoCena
                 $query = $db->prepare("
                     SELECT
+                        a.idAliment,
                         a.fecha,
                         a.estadoDesayuno,
                         a.estadoComida,
                         a.estadoCena
                     FROM alimentacion a
-                    JOIN actobligatoria o ON a.idAct = o.idAct
                     WHERE a.idAstronauta = ?
                 ");
                 $query->execute([$clave]);
-                $row = $query->fetch(PDO::FETCH_ASSOC);
+                $row = $query->fetchAll(PDO::FETCH_ASSOC);
                 if ($row) {
                     $respuesta = [
                         "validacion" => true,
                         "fecha" => $row['fecha'],
+                        "idAliment" => $row['idAliment'],
                         "estadoDesayuno" => $row['estadoDesayuno'],
                         "estadoComida" => $row['estadoComida'],
                         "estadoCena" => $row['estadoCena']
@@ -188,12 +189,56 @@ try {
             }
             break;
 
-        case 'hidratacion':
+        case 'devolver_actRecreativa':
             $clave = $data['idAstronauta'] ?? null;
             if (!empty($clave)) {
-                // FIX #7: coma sobrante después de h.fecha
                 $query = $db->prepare("
                     SELECT
+                        a.idAstronauta,
+                        r.idActRecreativa,
+                        r.nombre,
+                        r.descripcion,
+                        r.horasDiarias,
+                        r.fecha,
+                        r.estado
+                        
+                    FROM Astronauta a
+                    JOIN ActRecreativa r ON a.idAstronauta = r.idAstronauta
+                    WHERE a.idAstronauta = ?
+                ");
+                $query->execute([$clave]);
+                $row = $query->fetchAll(PDO::FETCH_ASSOC);
+                if ($row) {
+                    $respuesta = [
+                        "validacion" => true,
+                        "clave" => $row['idAstronauta'],
+                        "nombre" => $row['nombre'],
+                        "descripcion" => $row['descripcion'],
+                        "horasDiarias" => $row['horasDiarias'],
+                        "fecha" => $row['fecha'],
+                        "estado" => $row['estado']
+
+                    ];
+                } else {
+                    $respuesta = [
+                        "validacion" => false,
+                        "error" => "Clave o ID de astronauta no encontrado"
+                    ];
+                }
+            } else {
+                $respuesta = [
+                    "validacion" => false,
+                    "error" => "El ID de astronauta está vacío"
+                ];
+            }
+            break;
+
+        case 'devolver_hidratacion':
+            $clave = $data['idAstronauta'] ?? null;
+            if (!empty($clave)) {
+                $query = $db->prepare("
+                    SELECT
+                        h.idHidratacion,
                         h.litrosDia,
                         h.fecha
                     FROM hidratacion h
@@ -222,12 +267,12 @@ try {
             }
             break;
 
-        case 'animo':
+        case 'devolver_animo':
             $clave = $data['idAstronauta'] ?? null;
             if (!empty($clave)) {
-                // FIX #7: coma sobrante después de a.estado
                 $query = $db->prepare("
                     SELECT
+                        a.idAnimo,
                         a.fecha,
                         a.estado
                     FROM animo a
@@ -256,62 +301,27 @@ try {
             }
             break;
 
-        case 'ejercicio':
+        case 'devolverActividadFísica':
             $clave = $data['idAstronauta'] ?? null;
             if (!empty($clave)) {
                 $query = $db->prepare("
                     SELECT
+                        e.idEjercicio,
+                        e.idAct,
                         e.horasDuracion,
                         e.fecha,
                         e.estado,
                         e.peso,
                         e.nivelEsfuerzo,
-                        o.nombre
+                        e.descripcion
+                        o.nombre AS nombreActividad
                     FROM ejercicio e
-                    JOIN actobligatoria o ON e.idAct = o.idAct
+                    INNER JOIN actobligatoria o ON e.idAct = o.idAct
                     WHERE e.idAstronauta = ?
                 ");
                 $query->execute([$clave]);
                 $rows = $query->fetchAll(PDO::FETCH_ASSOC);
                 if ($rows) {
-                    // FIX #7: fetchAll devuelve un ARREGLO de filas, no una fila.
-                    // Antes se hacía $row['fecha'] (índice inexistente).
-                    // Ahora se devuelve la lista completa en "registros".
-                    $respuesta = [
-                        "validacion" => true,
-                        "registros" => $rows
-                    ];
-                } else {
-                    $respuesta = [
-                        "validacion" => false,
-                        "error" => "Clave o ID de astronauta no encontrado"
-                    ];
-                }
-            } else {
-                $respuesta = [
-                    "validacion" => false,
-                    "error" => "El ID de astronauta está vacío"
-                ];
-            }
-            break;
-
-        case 'actrecreativa':
-            $clave = $data['idAstronauta'] ?? null;
-            if (!empty($clave)) {
-                $query = $db->prepare("
-                    SELECT
-                        a.nombre,
-                        a.descripcion,
-                        a.horasDiarias,
-                        a.fecha,
-                        a.estado
-                    FROM actrecreativa a
-                    WHERE a.idAstronauta = ?
-                ");
-                $query->execute([$clave]);
-                $rows = $query->fetchAll(PDO::FETCH_ASSOC);
-                if ($rows) {
-                    // FIX #7: mismo problema que en 'ejercicio' (fetchAll).
                     $respuesta = [
                         "validacion" => true,
                         "registros" => $rows
