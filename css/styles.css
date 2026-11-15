@@ -9,8 +9,6 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Fondo exclusivo para la vista de login
-   Difuminado diagonal: esquina inferior izquierda -> superior derecha */
 body.login-body {
     background-color: #000000;
     background-image: linear-gradient(

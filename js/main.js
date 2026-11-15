@@ -64,3 +64,12 @@ if (formLogin) {
         }
     });
 }
+
+const tarjetaPersonal = document.getElementById('card-personal-data');
+const panelNotificaciones = document.getElementById('panel-notificaciones');
+
+if (tarjetaPersonal && panelNotificaciones) {
+    tarjetaPersonal.addEventListener('click', () => {
+        panelNotificaciones.classList.toggle('abierto');
+    });
+}
