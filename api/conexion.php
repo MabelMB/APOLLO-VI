@@ -1,28 +1,44 @@
 
 <?php
 
-require_once __DIR__ . '/../config.php';
+class Conexion {
 
-$host = $_ENV['DB_HOST'];
-$puerto = $_ENV['DB_PORT'];
-$basedatos = $_ENV['DB_NAME'];
-$usuario = $_ENV['DB_USER'];
-$password = $_ENV['DB_PASSWORD'];
+    private $host;
+    private $db;
+    private $usuario;
+    private $pass;
+    private $charset;
+    private $puerto;
 
-try {
-    $pdo = new PDO(
-        "mysql:host=$host;port=$puerto;dbname=$basedatos;charset=utf8mb4",
-        $usuario,
-        $password,
-        [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::MYSQL_ATTR_SSL_CA => ini_get('openssl.cafile'),
-            PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true
-        ]
-    );
+    public function __construct() {
+        $this->host = '127.0.0.1';
+        $this->db = 'hackathon';
+        $this->usuario = 'root';
+        $this->pass = '';
+        $this->charset = 'utf8mb4';
+        $this->puerto = '3307';
+    }
 
-} catch (PDOException $e) {
-    error_log($e->getMessage());
-    die("No se pudo establecer la conexión.");
+    public function conectar() {
+
+        $com = "mysql:host=" . $this->host .
+               ";port=" . $this->puerto .
+               ";dbname=" . $this->db .
+               ";charset=" . $this->charset;
+
+        $enlace = new PDO(
+            $com,
+            $this->usuario,
+            $this->pass,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false
+            ]
+        );
+
+        return $enlace;
+    }
 }
+
+?>
