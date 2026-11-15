@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APOLLO-VI | Health Activities</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="dashboard-body">
+
+    <main class="main-grid">
+        <!-- 1. BARRA IZQUIERDA DE DATOS (Post-its rosas) -->
+        <aside id="panel-datos-izquierda" class="sidebar-datos">
+            <div id="card-name" class="info-box">
+                <h3>NAME</h3>
+                <p id="astronauta-nombre">Cmdt. Alex Rivera</p>
+            </div>
+
+            <div id="card-personal-data" class="info-box">
+                <h3>PERSONAL DATA</h3>
+                <ul>
+                    <li>Edad: <span id="dato-edad">34</span> años</li>
+                    <li>Sexo: <span id="dato-sexo">F</span></li>
+                    <li>Tipo Sangre: <span id="dato-sangre">O+</span></li>
+                </ul>
+            </div>
+
+            <div id="card-mission-data" class="info-box">
+                <h3>MISSION DATA</h3>
+                <ul>
+                    <li>Misión: <span id="dato-mision">Artemis / Marte</span></li>
+                    <li>Días en órbita: <span id="dato-dias">45</span></li>
+                    <li>Días seguros rest.: <span id="dato-dias-seguros">135</span></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- ZONA CENTRAL + CATEGORÍAS A LA DERECHA -->
+        <section class="health-layout">
+            <!-- Listado de Actividades (Reutiliza clases de recreativas) -->
+            <div class="activities-wrapper">
+                <h2 class="activities-main-title">MANDATORY HEALTH ACTIVITIES</h2>
+
+                <div class="activities-scroll-container">
+                    <article class="activity-card-box">
+                        <div class="activity-header-row">
+                            <h4>EXERCISE: Morning Mobility &amp; Spinal Decompression: 10 minutes.</h4>
+                            <button class="btn-done-action" onclick="this.textContent='COMPLETED'; this.style.borderColor='#22c55e';">DONE</button>
+                        </div>
+                        <p>• Gentle cat-cow stretches, knee-to-chest pulls, and torso twists anchored to cabin handrails to relieve back stiffness caused by spinal elongation in zero gravity.</p>
+                    </article>
+
+                    <article class="activity-card-box">
+                        <div class="activity-header-row">
+                            <h4>EXERCISE: Compact Flywheel / E4D Resistive Training (Lower Body &amp; Spine) - 25 minutes.</h4>
+                            <button class="btn-done-action" onclick="this.textContent='COMPLETED'; this.style.borderColor='#22c55e';">DONE</button>
+                        </div>
+                        <p>• High-load squats, deadlifts, and single-leg calf raises using a compact cable-flywheel system (generating up to 400 lbs of resistance) to apply heavy mechanical stress to the hips and lumbar spine.</p>
+                    </article>
+
+                    <article class="activity-card-box">
+                        <div class="activity-header-row">
+                            <h4>EXERCISE: High-Intensity Interval Rowing (HIIT) - 20 minutes.</h4>
+                            <button class="btn-done-action" onclick="this.textContent='COMPLETED'; this.style.borderColor='#22c55e';">DONE</button>
+                        </div>
+                        <p>• Using the same multi-modal machine in rowing mode, alternating 30-second max-effort sprints with 30-second active recovery intervals to maximize cardiovascular and aerobic fitness.</p>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Listado Sencillo de Categorías a la Derecha -->
+            <aside class="categories-sidebar">
+                <button class="category-item active">CATEGORY 1</button>
+                <button class="category-item">CATEGORY 2</button>
+                <button class="category-item">CATEGORY 3</button>
+                <button class="category-item">CATEGORY 4</button>
+            </aside>
+        </section>
+    </main>
+
+    <!-- BARRA INFERIOR (Idéntica al dashboard) -->
+    <nav class="bottom-nav">
+        <button class="nav-btn btn-exit" onclick="window.location.href='login.html'">Exit</button>
+        <button class="nav-btn" onclick="window.location.href='main.html'">Inicio</button>
+        <button class="nav-btn" onclick="window.location.href='recAct.html'">Actividades recreativas</button>
+        <button class="nav-btn" onclick="window.location.href='healthAct.html'">Actividades Obligatorias</button>
+    </nav>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
