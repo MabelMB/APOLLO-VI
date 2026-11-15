@@ -205,8 +205,10 @@ body.dashboard-body {
 
 /* Temas del degradado según el sistema seleccionado */
 .main-grid[data-tema="oseo"]      { --color-degradado: #7c4dff; }
+.main-grid[data-tema="corazon"]      { --color-degradado: rgba(250, 89, 215, 0.653); }
 .main-grid[data-tema="radiacion"] { --color-degradado: #ef4444; }
 .main-grid[data-tema="musculos"]  { --color-degradado: #22c55e; }
+.main-grid[data-tema="metabolismo"]  { --color-degradado: #c58f22; }
 
 .sidebar-datos {
     background-color: #0a1128;
@@ -253,25 +255,85 @@ body.dashboard-body {
 .cuerpo-container, .metricas-container {
     background-color: transparent;
     height: 100%;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 20px;
 }
 
+/* Recorta la imagen ampliada para que no se salga de la columna central */
+.cuerpo-container {
+    overflow: hidden;
+}
+
+/* ------------------------------------------
+   PNJ: las imágenes van en posición absoluta,
+   así su tamaño real nunca afecta el layout.
+   ------------------------------------------ */
 .avatar-wrapper {
+    position: relative;
+    flex: 1;
     width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    min-height: 0;
 }
 
 .avatar-wrapper img {
-    max-height: 75%;      /* antes 75% */
-    max-width: 100%;
+    position: absolute;
+    top: 12.5%;               /* deja 12.5% arriba y abajo: la imagen ocupa el 75% de la altura */
+    left: 0;
+    width: 100%;
+    height: 75%;
     object-fit: contain;
+    transition: transform 1s ease, opacity 1s ease;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Imagen base: entra y sale poco a poco */
+#img-cuerpo {
+    transition: transform 1s ease, opacity 1.5s ease-in-out;
+    animation: aparecer 1.5s ease-in-out;
+}
+
+/* Acercamientos: cada sistema tiene su propio punto de zoom.
+   scale = cuánto se acerca | transform-origin = a qué parte (horizontal vertical) */
+#img-cuerpo.zoom-sueno {
+    transform: scale(1.8);
+    transform-origin: 50% 8%;      /* cabeza */
+}
+
+#img-cuerpo.zoom-corazon {
+    transform: scale(1.8);
+    transform-origin: 50% 30%;     /* tórax */
+}
+
+#img-cuerpo.zoom-metabolismo {
+    transform: scale(1.8);
+    transform-origin: 50% 50%;     /* en medio, hacia el abdomen */
+}
+
+/* La base se desvanece rápido cuando entra la imagen de detalle */
+#img-cuerpo.oculta {
+    opacity: 0;
+    transition: transform 1s ease, opacity 0.5s ease-in;
+}
+
+/* Imágenes de detalle (cabeza, tórax, abdomen): invisibles al inicio.
+   Esta transición se usa al SALIR (casi instantánea) */
+.avatar-wrapper .img-detalle {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s ease;
+}
+
+/* Esta transición se usa al ENTRAR (gradual) */
+.avatar-wrapper .img-detalle.visible {
+    opacity: 1;
+    transition: opacity 1s ease;
 }
 
 .tabla-sistemas {
