@@ -317,3 +317,301 @@ function calcularDiasSeguros(porcentajeCancer, diasOrbita, limite = 3, factor = 
     if (margen <= 0) return 0;              // ya se alcanzó el límite
     return Math.floor(margen / tasaDiaria);
 }
+
+function gestionarCategorias(categoria, idAstronauta) {
+    const contenedor = document.getElementById("activities-scroll-container");
+    if (contenedor) {
+        contenedor.innerHTML = "<p>Cargando datos espaciales...</p>";
+    }
+    switch (categoria) {
+        case 'ejercicio':
+            devolverActividadFísica(idAstronauta);
+            break;
+            
+        case 'animo':
+            devolver_animo(idAstronauta);
+            break;
+            
+        case 'alimentacion':
+            devolver_alimentacion(idAstronauta);
+            break;
+            
+        case 'hidratacion':
+            devolver_hidratacion(idAstronauta);
+            break;
+            
+        default:
+            console.warn("Categoría desconocida");
+    }
+}
+
+
+async function devolverActividadFísica(idAstronauta) {
+    try {
+        const response = await fetch("api/index.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                action: "devolverActividadFísica",
+                idAstronauta: idAstronauta
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al consultar los datos");
+        }
+        const data = await response.json();
+
+        console.log("Respuesta del servidor:", data);
+        console.log("ID enviado:", idAstronauta);
+
+        if (!data || data.validacion === false) {
+            console.error("Error del servidor:", data?.error ?? "No se encontró el astronauta");
+            return;
+        }
+
+        const contenedor = document.getElementById("activities-scroll-container");
+
+        if (!contenedor) {
+            console.error("No se encontró activities-scroll-container");
+            return;
+        }
+        
+        contenedor.innerHTML = "";
+
+        data.registros.forEach(actividad => {
+            contenedor.innerHTML += `
+                <article class="activity-card-box" id="actividad-obligatoria-${actividad.idEjercicio}">
+                    <div class="activity-header-row" id="actividad-header-${actividad.idEjercicio}">
+                        <h4>${actividad.nombreActividad}</h4>
+                        <h4>${actividad.fecha}</h4>
+                    </div>
+                    <p>Descripcion: ${actividad.descripcion}</p>
+                    <p>Horas: ${actividad.horasDuracion} hrs </p>
+                    <p>Esfuerzo ${actividad.nivelEsfuerzo}</p>
+                    <p>Peso: ${actividad.peso}</p>
+                </article>
+            `;
+        });
+        
+        aplicarTema("inicio");
+
+    } catch (error) {
+        console.error("Error al mostrar datos de ejercicio:", error);
+    }
+}
+
+async function devolver_alimentacion(idAstronauta) {
+    try {
+
+        const response = await fetch("api/index.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                action: "alimentacion",
+                idAstronauta: idAstronauta
+            })
+        });
+       if (!response.ok) {
+            throw new Error("Error al consultar los datos");
+        }
+        const data = await response.json();
+
+        console.log("Respuesta del servidor:", data);
+        console.log("ID enviado:", idAstronauta);
+
+        if (!data || data.validacion === false) {
+            console.error("Error del servidor:", data?.error ?? "No se encontró el astronauta");
+            return;
+        }
+
+        const contenedor = document.getElementById("activities-scroll-container");
+
+        if (!contenedor) {
+            console.error("No se encontró activities-scroll-container");
+            return;
+        }
+        
+        contenedor.innerHTML = "";
+
+        data.registros.forEach(actividad => {
+            contenedor.innerHTML += `
+                <article class="activity-card-box" id="actividad-obligatoria-${actividad.idAliment}">
+                    <div class="activity-header-row" id="actividad-header-${actividad.idAliment}">
+                        <h4>${actividad.fecha}</h4>
+                    </div>
+                    <p>Estado Desayuno: ${actividad.estadoDesayuno}</p>
+                    <p>Estado Comida: ${actividad.estadoComida}</p>
+                    <p>Estado Cena: ${actividad.estadoCena}</p>
+                </article>
+            `;
+        });
+        
+        aplicarTema("inicio");
+
+    } catch (error) {
+
+        console.error("Error al mostrar datos personales:", error);
+
+    }
+
+}
+
+async function devolver_animo(idAstronauta) {
+    try {
+
+        const response = await fetch("api/index.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                action: "devolver_animo",
+                idAstronauta: idAstronauta
+            })
+        });
+       if (!response.ok) {
+            throw new Error("Error al consultar los datos");
+        }
+        const data = await response.json();
+
+        console.log("Respuesta del servidor:", data);
+        console.log("ID enviado:", idAstronauta);
+
+        if (!data || data.validacion === false) {
+            console.error("Error del servidor:", data?.error ?? "No se encontró el astronauta");
+            return;
+        }
+
+        const contenedor = document.getElementById("activities-scroll-container");
+
+        if (!contenedor) {
+            console.error("No se encontró activities-scroll-container");
+            return;
+        }
+        
+        contenedor.innerHTML = "";
+
+        data.registros.forEach(actividad => {
+            contenedor.innerHTML += `
+                <article class="activity-card-box" id="actividad-obligatoria-${actividad.idAnimo}">
+                    <div class="activity-header-row" id="actividad-header-${actividad.idAnimo}">
+                        <h4>${actividad.fecha}</h4>
+                    </div>
+                    <p>${actividad.descripcion}</p>
+                    <p>ID: ${actividad.idAnimo}</p>
+                    <p>Estado: ${actividad.estado}</p>
+                </article>
+            `;
+        });
+        
+        aplicarTema("inicio");
+
+    } catch (error) {
+
+        console.error("Error al mostrar datos personales:", error);
+
+    }
+
+}
+
+async function devolver_hidratacion(idAstronauta) {
+    try {
+
+        const response = await fetch("api/index.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                action: "devolver_hidratacion",
+                idAstronauta: idAstronauta
+            })
+        });
+       if (!response.ok) {
+            throw new Error("Error al consultar los datos");
+        }
+        const data = await response.json();
+
+        console.log("Respuesta del servidor:", data);
+        console.log("ID enviado:", idAstronauta);
+
+        if (!data || data.validacion === false) {
+            console.error("Error del servidor:", data?.error ?? "No se encontró el astronauta");
+            return;
+        }
+
+        const contenedor = document.getElementById("activities-scroll-container");
+
+        if (!contenedor) {
+            console.error("No se encontró activities-scroll-container");
+            return;
+        }
+        
+        contenedor.innerHTML = "";
+
+        data.registros.forEach(actividad => {
+            contenedor.innerHTML += `
+                <article class="activity-card-box" id="actividad-obligatoria-${actividad.idHidratacion}">
+                    <div class="activity-header-row" id="actividad-header-${actividad.idHidratacion}">
+                        <h4>${actividad.fecha}</h4>
+                    </div>
+                    <p>${actividad.descripcion}</p>
+                    <p>ID: ${actividad.idHidratacion}</p>
+                    <p>Litros dia: ${actividad.litrosDia}</p>
+                </article>
+            `;
+        });
+        
+        aplicarTema("inicio");
+
+    } catch (error) {
+
+        console.error("Error al mostrar datos personales:", error);
+
+    }
+
+}
+
+function cargarActRecreativas() {
+    var contenedor = document.querySelector('activities-scroll-container');	
+	fetch('php/index.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+					action: 'extraer_biblioteca',
+					id_usuario: id_usuario
+				})
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.length === 0) {
+					contenedor.innerHTML += `
+						<div class="cont-temp-bibl" style="height:400px;"> 
+							<p> No tienes actividades recreativas agregadas. </p>
+						</div>
+					`;
+					return;
+				}
+				
+				contenedor.innerHTML = '';
+                data.forEach(act => {
+                    contenedor.innerHTML += `
+                        <div class="tarjeta" id="actrecreativa-${act.idAct}">
+                            <h3>${act.nombre}</h3>
+                            <p>${act.descripcion}</p>
+                            <p>Horas diarias: ${act.horasDiarias}</p>
+                            <p>Fecha: ${act.fecha}</p>
+                            <p>Estado: ${act.estado}</p>
+                        </div>
+                    `;
+                });
+			})
+		.catch(error => console.error('Error:', error)); 
+}
