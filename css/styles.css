@@ -205,8 +205,10 @@ body.dashboard-body {
 
 /* Temas del degradado según el sistema seleccionado */
 .main-grid[data-tema="oseo"]      { --color-degradado: #7c4dff; }
+.main-grid[data-tema="corazon"]      { --color-degradado: rgba(250, 89, 215, 0.653); }
 .main-grid[data-tema="radiacion"] { --color-degradado: #ef4444; }
 .main-grid[data-tema="musculos"]  { --color-degradado: #22c55e; }
+.main-grid[data-tema="metabolismo"]  { --color-degradado: #c58f22; }
 
 .sidebar-datos {
     background-color: #0a1128;
@@ -253,25 +255,85 @@ body.dashboard-body {
 .cuerpo-container, .metricas-container {
     background-color: transparent;
     height: 100%;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 20px;
 }
 
+/* Recorta la imagen ampliada para que no se salga de la columna central */
+.cuerpo-container {
+    overflow: hidden;
+}
+
+/* ------------------------------------------
+   PNJ: las imágenes van en posición absoluta,
+   así su tamaño real nunca afecta el layout.
+   ------------------------------------------ */
 .avatar-wrapper {
+    position: relative;
+    flex: 1;
     width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    min-height: 0;
 }
 
 .avatar-wrapper img {
-    max-height: 75%;      /* antes 75% */
-    max-width: 100%;
+    position: absolute;
+    top: 12.5%;               /* deja 12.5% arriba y abajo: la imagen ocupa el 75% de la altura */
+    left: 0;
+    width: 100%;
+    height: 75%;
     object-fit: contain;
+    transition: transform 1s ease, opacity 1s ease;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Imagen base: entra y sale poco a poco */
+#img-cuerpo {
+    transition: transform 1s ease, opacity 1.5s ease-in-out;
+    animation: aparecer 1.5s ease-in-out;
+}
+
+/* Acercamientos: cada sistema tiene su propio punto de zoom.
+   scale = cuánto se acerca | transform-origin = a qué parte (horizontal vertical) */
+#img-cuerpo.zoom-sueno {
+    transform: scale(1.8);
+    transform-origin: 50% 8%;      /* cabeza */
+}
+
+#img-cuerpo.zoom-corazon {
+    transform: scale(1.8);
+    transform-origin: 50% 30%;     /* tórax */
+}
+
+#img-cuerpo.zoom-metabolismo {
+    transform: scale(1.8);
+    transform-origin: 50% 50%;     /* en medio, hacia el abdomen */
+}
+
+/* La base se desvanece rápido cuando entra la imagen de detalle */
+#img-cuerpo.oculta {
+    opacity: 0;
+    transition: transform 1s ease, opacity 0.5s ease-in;
+}
+
+/* Imágenes de detalle (cabeza, tórax, abdomen): invisibles al inicio.
+   Esta transición se usa al SALIR (casi instantánea) */
+.avatar-wrapper .img-detalle {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s ease;
+}
+
+/* Esta transición se usa al ENTRAR (gradual) */
+.avatar-wrapper .img-detalle.visible {
+    opacity: 1;
+    transition: opacity 1s ease;
 }
 
 .tabla-sistemas {
@@ -508,4 +570,119 @@ body.dashboard-body {
     background: rgba(56, 189, 248, 0.15);
     color: #ffffff;
     border-bottom-color: #00e5ff;
+}
+
+/*------------------------------*/
+.sleep-layout {
+    grid-column: span 2;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: calc(100vh - 55px);
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.sleep-title {
+    color: #ffffff;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    font-weight: 400;
+}
+
+.sleep-main-metric {
+    margin-bottom: 25px;
+}
+
+.sleep-main-metric span {
+    display: block;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.sleep-main-metric h2 {
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+/* Barras de progreso / métricas tipo barra */
+.sleep-bar-metric {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 650px;
+}
+
+.sleep-bar-metric label {
+    display: block;
+    color: #ffffff;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.sleep-progress-bar {
+    width: 100%;
+    height: 18px;
+    background-color: #161b22;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.sleep-progress-fill {
+    height: 100%;
+    background-color: #d1d5db; /* Tono grisáceo claro como el de tu imagen de referencia */
+}
+
+/* Métricas secundarias en cuadrícula inferior */
+.sleep-grid-info {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 280px));
+    gap: 30px;
+    margin-top: 15px;
+}
+
+.sleep-info-card span {
+    display: block;
+    color: #9ca3af;
+    font-size: 0.75rem;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sleep-info-card h3 {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+/*---------------------------------*/
+/* Ajuste para el panel lateral desplegable con scroll */
+.panel-notificaciones {
+    display: flex;
+    flex-direction: column;
+}
+
+#contenido-panel-dinamico {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-right: 5px;
+    max-height: calc(100vh - 130px); /* Deja espacio para el título y la barra inferior */
+
+    /* Ocultar barra de scroll para mantener la estética limpia */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#contenido-panel-dinamico::-webkit-scrollbar {
+    display: none !important;
 }
