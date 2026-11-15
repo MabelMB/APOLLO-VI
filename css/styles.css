@@ -380,3 +380,76 @@ body.dashboard-body {
     text-transform: uppercase;
 }
 
+/*----------------------------------------*/
+
+.activities-wrapper {
+    grid-column: span 2; 
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 70px);
+    box-sizing: border-box;
+}
+
+.activities-main-title {
+    color: #ffffff;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+/* Contenedor con scroll vertical para las tarjetas */
+.activities-scroll-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-right: 10px;
+}
+
+/* Tarjeta individual de actividad */
+.activity-card-box {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 18px 20px;
+}
+
+.activity-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.activity-header-row h4 {
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.activity-card-box p {
+    color: #9ca3af;
+    font-size: 0.75rem;
+    line-height: 1.4;
+}
+
+/* Botón DONE estético */
+.btn-done-action {
+    background-color: #21262d;
+    color: #ffffff;
+    border: 1px solid #30363d;
+    padding: 6px 16px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.btn-done-action:hover {
+    background-color: #30363d;
+}

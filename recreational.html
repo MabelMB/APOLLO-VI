@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APOLLO-VI - Actividades Obligatorias</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="main-grid">
+
+        <!-- 1. BARRA IZQUIERDA DE DATOS (Intacta y reciclada) -->
+        <aside id="panel-datos-izquierda" class="sidebar-datos">
+            <div id="card-name" class="info-box">
+                <h3>NAME</h3>
+                <p id="astronauta-nombre">Cmdt. Alex Rivera</p>
+            </div>
+
+            <div id="card-personal-data" class="info-box">
+                <h3>PERSONAL DATA</h3>
+                <ul>
+                    <li>Edad: <span id="dato-edad">34</span> años</li>
+                    <li>Sexo: <span id="dato-sexo">F</span></li>
+                    <li>Tipo Sangre: <span id="dato-sangre">O+</span></li>
+                </ul>
+            </div>
+
+            <div id="card-mission-data" class="info-box">
+                <h3>MISSION DATA</h3>
+                <ul>
+                    <li>Misión: <span id="dato-mision">Artemis / Marte</span></li>
+                    <li>Días en órbita: <span id="dato-dias">45</span></li>
+                    <li>Días seguros rest.: <span id="dato-dias-seguros">135</span></li>
+                </ul>
+            </div>
+        </aside>
+
+      <!-- 2. ZONA CENTRAL/DERECHA REEMPLAZADA POR LA LISTA DE ACTIVIDADES -->
+        <section class="activities-wrapper">
+            <h2 class="activities-main-title">MANDATORY HEALTH ACTIVITIES</h2>
+            
+            <div class="activities-scroll-container">
+                
+                <!-- Tarjeta 1 -->
+                <div class="activity-card-box">
+                    <div class="activity-header-row">
+                        <h4>EXERCISE: Morning Mobility & Spinal Decompression: 10 minutes.</h4>
+                        <button class="btn-done-action">DONE</button>
+                    </div>
+                    <p>• Gentle cat-cow stretches, knee-to-chest pulls, and torso twists anchored to cabin handrails to relieve back stiffness caused by spinal elongation in zero gravity.</p>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="activity-card-box">
+                    <div class="activity-header-row">
+                        <h4>EXERCISE: Compact Flywheel / E4D Resistive Training (Lower Body & Spine) - 25 minutes.</h4>
+                        <button class="btn-done-action">DONE</button>
+                    </div>
+                    <p>• High-load squats, deadlifts, and single-leg calf raises using a compact cable-flywheel system (generating up to 400 lbs of resistance) to apply heavy mechanical stress to the hips and lumbar spine.</p>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="activity-card-box">
+                    <div class="activity-header-row">
+                        <h4>EXERCISE: High-Intensity Interval Rowing (HIIT) - 20 minutes.</h4>
+                        <button class="btn-done-action">DONE</button>
+                    </div>
+                    <p>• Using the same multi-modal machine in rowing mode, alternating 30-second max-effort sprints with 30-second active recovery intervals to maximize cardiovascular and aerobic fitness.</p>
+                </div>
+
+                <!-- Tarjeta 4 -->
+                <div class="activity-card-box">
+                    <div class="activity-header-row">
+                        <h4>EXERCISE: Core Stabilization & Vacuum Breathing - 15 minutes.</h4>
+                        <button class="btn-done-action">DONE</button>
+                    </div>
+                    <p>• Deep transverse abdominis contractions and vacuum exercises to counteract visceral displacement and maintain intra-abdominal pressure in microgravity.</p>
+                </div>
+
+                <!-- Tarjeta 5 -->
+                <div class="activity-card-box">
+                    <div class="activity-header-row">
+                        <h4>EXERCISE: Treadmill Endurance Running (With Harness) - 30 minutes.</h4>
+                        <button class="btn-done-action">DONE</button>
+                    </div>
+                    <p>• Moderate-intensity aerobic session using elastic harness load systems to simulate Earth's gravitational pull and protect cardiovascular output.</p>
+                </div>
+
+                <!-- Tarjeta 6 -->
+                <div class="activity-card-box">
+                    <div class="activity-header-row">
+                        <h4>EXERCISE: Post-Workout Myofascial Release & Stretching - 15 minutes.</h4>
+                        <button class="btn-done-action">DONE</button>
+                    </div>
+                    <p>• Targeted foam rolling and assisted stretching routines focused on alleviating lower back tension and preventing muscle fiber rigidity.</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 3. BARRA INFERIOR DE NAVEGACIÓN (Intacta y enlazada) -->
+    <footer id="barra-inferior" class="bottom-nav">
+        <button id="btn-exit" class="nav-btn btn-exit">Exit</button>
+        <button id="btn-inicio" class="nav-btn" onclick="window.location.href='main.html'">Inicio</button>
+        <button id="btn-recreativas" class="nav-btn" onclick="window.location.href='recreativas.html'">Actividades recreativas</button>
+        <button id="btn-obligatorias" class="nav-btn active">Actividades obligatorias</button>
+        <button id="btn-notificaciones" class="nav-btn">Notificaciones</button>
+    </footer>
+    
+    <aside id="panel-notificaciones" class="panel-notificaciones">
+        <h3 id="panel-titulo">Notificaciones</h3>
+    </aside>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
