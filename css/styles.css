@@ -9,9 +9,18 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Fondo exclusivo para la vista de login */
+/* Fondo exclusivo para la vista de login
+   Difuminado diagonal: esquina inferior izquierda -> superior derecha */
 body.login-body {
-    background-color: #0b0d17;
+    background-color: #000000;
+    background-image: linear-gradient(
+        to top right,
+        #00e5ff 0%,     /* azul: esquina inferior izquierda */
+        #0a4a8a 25%,    /* azul medio */
+        #06142e 55%,    /* azul muy oscuro */
+        #000000 85%     /* negro: esquina superior derecha */
+    );
+    background-attachment: fixed;
     color: #ffffff;
     min-height: 100vh;
     display: flex;
@@ -75,6 +84,19 @@ body.login-body {
     transition: box-shadow 0.3s ease;
 }
 
+/* Quitar flechas arriba/abajo (spinner) del input numérico */
+.apollo-input::-webkit-outer-spin-button,
+.apollo-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.apollo-input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
 .apollo-input:focus {
     box-shadow: 0 0 12px rgba(124, 77, 255, 0.5);
 }
@@ -89,14 +111,16 @@ body.login-body {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    
+
     /* Ocultar barra de scroll */
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
 
 .apollo-dropdown::-webkit-scrollbar {
-    display: none;
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
 }
 
 /* Elementos individuales de la lista desplegable */
@@ -162,6 +186,16 @@ body.dashboard-body {
     grid-template-columns: 15% 35% 50%;
     gap: 0;
     padding: 0;
+    background-color: #0a1128;
+    background-image: linear-gradient(
+        to top right,
+        #1e6fd9 0%,     /* azul: esquina inferior izquierda de la zona */
+        #0f172a 50%,    /* azul oscuro */
+        #000000 100%    /* negro: esquina superior derecha */
+    );
+    background-size: 85% 100%;      /* solo cubre las columnas 2 y 3 */
+    background-position: right top;
+    background-repeat: no-repeat;
     flex: 1;
     height: 100%;
 }
@@ -201,7 +235,7 @@ body.dashboard-body {
 }
 
 .cuerpo-container, .metricas-container {
-    background-color: #0f172a;
+    background-color: transparent;
     height: 100%;
     display: flex;
     flex-direction: column;
