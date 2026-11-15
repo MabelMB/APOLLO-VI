@@ -1,8 +1,13 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const inputClave = document.getElementById('input-nombre'); 
-    const listaDropdown = document.querySelector('.dropdown-list');
+    const inputClave = document.getElementById('input-clave');
+    const listaDropdown = document.getElementById('lista-coincidencias');
     const btnLogin = document.getElementById('btn-login');
     const formLogin = document.getElementById('form-login');
+
+    if (!inputClave || !listaDropdown || !btnLogin || !formLogin) {
+        console.error('Falta algún elemento del formulario en login.html');
+        return;
+    }
 
     let astronautasDB = []; // 1. Declaramos la variable primero
 
