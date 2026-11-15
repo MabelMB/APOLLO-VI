@@ -40,18 +40,17 @@
         <!-- 2. ESPACIO CENTRAL PARA LA IMAGEN DEL CUERPO HUMANO -->
         <section id="panel-cuerpo-central" class="cuerpo-container">
             <div id="mapa-corporal" class="avatar-wrapper">
-                <!-- Aquí va la imagen o SVG interactivo del cuerpo humano -->
-                <img src="img/cuerpo-humano.png" alt="Figura del cuerpo humano" id="img-cuerpo">
-                
+                <!-- El JS cambia esta imagen según el sexo y el sistema seleccionado -->
+                <img src="img/maleBase.png" alt="Figura del cuerpo humano" id="img-cuerpo">
             </div>
         </section>
 
         <!-- 3. TERCER ESPACIO (DERECHA): TABLA DE SISTEMAS Y DIAGNÓSTICO -->
         <section id="panel-metricas-derecha" class="metricas-container">
-            
-            <!-- Tabla / Lista de indicadores (Sueño, Corazón, Óseo, Radiación, Músculos) -->
+
+            <!-- Tabla / Lista de indicadores (Sueño, Corazón, Óseo, Radiación, Músculos, Metabolismo) -->
             <div class="tabla-sistemas">
-                
+
                 <div class="fila-sistema" id="sistema-sueno">
                     <div class="sistema-titulo">
                         <strong>Sueño</strong>
@@ -127,10 +126,11 @@
         <button id="btn-recreativas" class="nav-btn">Actividades recreativas</button>
         <button id="btn-obligatorias" class="nav-btn">Actividades obligatorias</button>
     </footer>
-    
+
+    <!-- 5. RECUADRO LATERAL DERECHO (Notificaciones y sistemas) -->
     <aside id="panel-notificaciones" class="panel-notificaciones">
-    <h3 id="panel-titulo">Notificaciones</h3>
-</aside>
+        <h3 id="panel-titulo">Notificaciones</h3>
+    </aside>
 
     <script src="js/main.js"></script>
 </body>

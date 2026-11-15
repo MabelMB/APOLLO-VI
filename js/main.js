@@ -1,4 +1,8 @@
-// Lista temporal de claves de astronautas
+// ==========================================
+// LOGIN (solo se ejecuta si existe el formulario de login)
+// ==========================================
+
+// Lista temporal de claves de astronautas (luego Backend la conectará con MySQL)
 const astronautas = [
     "123456",
     "234356",
@@ -62,7 +66,7 @@ if (formLogin) {
             localStorage.setItem("astronautaActivo", inputClave.value.trim());
 
             // Redirige al dashboard
-            window.location.href = "dashboard.html";
+            window.location.href = "main.html";
         }
     });
 }
@@ -74,6 +78,8 @@ if (formLogin) {
 
 const panelNotificaciones = document.getElementById("panel-notificaciones");
 const panelTitulo = document.getElementById("panel-titulo");
+const mainGrid = document.querySelector(".main-grid");
+const imgCuerpo = document.getElementById("img-cuerpo");
 
 // Cada elemento que abre el panel y el título que debe mostrar
 const botonesPanel = {
@@ -86,6 +92,39 @@ const botonesPanel = {
     "sistema-metabolismo": "Metabolismo"
 };
 
+// Qué tema (degradado + PNJ) activa cada botón.
+// Los botones que no están aquí usan el tema "inicio".
+const temasPorBoton = {
+    "sistema-oseo": "oseo",
+    "sistema-radiacion": "radiacion",
+    "sistema-musculos": "musculos"
+};
+
+// Imagen del PNJ según el tema y el sexo (archivos dentro de la carpeta img/)
+const imagenesPnj = {
+    inicio:    { mujer: "femaleBase.png",       hombre: "maleBase.png" },
+    oseo:      { mujer: "femaleBoneStruct.png", hombre: "maleBoneStruct.png" },
+    radiacion: { mujer: "femaleRadiation.png",  hombre: "maleRadiation.png" },
+    musculos:  { mujer: "femaleMuscles.png",    hombre: "maleMuscles.png" }
+};
+
+// Lee el sexo desde el dato del dashboard (F = mujer, cualquier otro = hombre)
+function obtenerSexo() {
+    const dato = document.getElementById("dato-sexo");
+    const texto = dato ? dato.textContent.trim().toUpperCase() : "";
+    return texto === "F" ? "mujer" : "hombre";
+}
+
+// Cambia el degradado (vía data-tema en el CSS) y la imagen del PNJ
+function aplicarTema(tema) {
+    if (!mainGrid || !imgCuerpo) return;
+    mainGrid.dataset.tema = tema;
+    imgCuerpo.src = "img/" + imagenesPnj[tema][obtenerSexo()];
+}
+
+// Tema por defecto al entrar al dashboard
+aplicarTema("inicio");
+
 let panelActual = null; // id del botón que tiene abierto el panel
 
 if (panelNotificaciones && panelTitulo) {
@@ -94,15 +133,20 @@ if (panelNotificaciones && panelTitulo) {
         if (!boton) return;
 
         boton.addEventListener("click", () => {
+            // PERSONAL DATA (notificaciones) no cambia el fondo ni el PNJ
+            const esSistema = id !== "card-personal-data";
+
             if (panelActual === id) {
                 // Segundo clic en el mismo botón: cerrar
                 panelNotificaciones.classList.remove("abierto");
                 panelActual = null;
+                if (esSistema) aplicarTema("inicio");
             } else {
                 // Abrir (o cambiar de título si ya estaba abierto)
                 panelTitulo.textContent = titulo;
                 panelNotificaciones.classList.add("abierto");
                 panelActual = id;
+                if (esSistema) aplicarTema(temasPorBoton[id] || "inicio");
             }
         });
     });

@@ -180,16 +180,21 @@ body.dashboard-body {
 }
 
 .main-grid {
+    /* Color de la esquina inferior izquierda del degradado (lo cambia el JS con data-tema) */
+    --color-degradado: #03449a;
+
     display: grid;
     grid-template-columns: 15% 35% 50%;
+    grid-template-rows: minmax(0, 1fr);
+    min-height: 0;
     gap: 0;
     padding: 0;
     background-color: #0a1128;
     background-image: linear-gradient(
         to top right,
-        #1e6fd9 0%,     /* azul: esquina inferior izquierda de la zona */
-        #0f172a 50%,    /* azul oscuro */
-        #000000 100%    /* negro: esquina superior derecha */
+        var(--color-degradado) 0%,  /* esquina inferior izquierda de la zona */
+        #0f172a 50%,                /* azul oscuro */
+        #000000 100%                /* negro: esquina superior derecha */
     );
     background-size: 85% 100%;      /* solo cubre las columnas 2 y 3 */
     background-position: right top;
@@ -197,6 +202,11 @@ body.dashboard-body {
     flex: 1;
     height: 100%;
 }
+
+/* Temas del degradado según el sistema seleccionado */
+.main-grid[data-tema="oseo"]      { --color-degradado: #7c4dff; }
+.main-grid[data-tema="radiacion"] { --color-degradado: #ef4444; }
+.main-grid[data-tema="musculos"]  { --color-degradado: #22c55e; }
 
 .sidebar-datos {
     background-color: #0a1128;
@@ -259,7 +269,8 @@ body.dashboard-body {
 }
 
 .avatar-wrapper img {
-    max-height: 75%;
+    max-height: 75%;      /* antes 75% */
+    max-width: 100%;
     object-fit: contain;
 }
 
@@ -344,29 +355,8 @@ body.dashboard-body {
     margin-right: auto;
 }
 
+/* Recuadro lateral derecho (Notificaciones y sistemas) */
 .panel-notificaciones {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 55px;                /* deja libre la barra inferior */
-    width: 400px;
-    padding: 25px;
-    background: rgba(4, 8, 17, 0.95);
-    border-left: 1px solid rgba(56, 189, 248, 0.35);
-    transform: translateX(100%); /* escondido fuera de la pantalla */
-    transition: transform 0.3s ease;
-}
-
-.panel-notificaciones.abierto {
-    transform: translateX(0);    /* visible */
-}
-
-.panel-notificaciones h3 {
-    color: #38bdf8;
-    font-size: 0.8rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-}.panel-notificaciones {
     position: fixed;
     top: 0;
     right: 0;
@@ -389,3 +379,4 @@ body.dashboard-body {
     letter-spacing: 1.5px;
     text-transform: uppercase;
 }
+
