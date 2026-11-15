@@ -571,3 +571,118 @@ body.dashboard-body {
     color: #ffffff;
     border-bottom-color: #00e5ff;
 }
+
+/*------------------------------*/
+.sleep-layout {
+    grid-column: span 2;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: calc(100vh - 55px);
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.sleep-title {
+    color: #ffffff;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    font-weight: 400;
+}
+
+.sleep-main-metric {
+    margin-bottom: 25px;
+}
+
+.sleep-main-metric span {
+    display: block;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.sleep-main-metric h2 {
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+/* Barras de progreso / métricas tipo barra */
+.sleep-bar-metric {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 650px;
+}
+
+.sleep-bar-metric label {
+    display: block;
+    color: #ffffff;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.sleep-progress-bar {
+    width: 100%;
+    height: 18px;
+    background-color: #161b22;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.sleep-progress-fill {
+    height: 100%;
+    background-color: #d1d5db; /* Tono grisáceo claro como el de tu imagen de referencia */
+}
+
+/* Métricas secundarias en cuadrícula inferior */
+.sleep-grid-info {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 280px));
+    gap: 30px;
+    margin-top: 15px;
+}
+
+.sleep-info-card span {
+    display: block;
+    color: #9ca3af;
+    font-size: 0.75rem;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sleep-info-card h3 {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+/*---------------------------------*/
+/* Ajuste para el panel lateral desplegable con scroll */
+.panel-notificaciones {
+    display: flex;
+    flex-direction: column;
+}
+
+#contenido-panel-dinamico {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-right: 5px;
+    max-height: calc(100vh - 130px); /* Deja espacio para el título y la barra inferior */
+
+    /* Ocultar barra de scroll para mantener la estética limpia */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#contenido-panel-dinamico::-webkit-scrollbar {
+    display: none !important;
+}
