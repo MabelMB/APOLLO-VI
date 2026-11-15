@@ -11,15 +11,18 @@
     <!-- CONTENEDOR PRINCIPAL DE LAS 3 COLUMNAS SUPERIORES -->
     <main class="main-grid">
 
-        <!-- 1. BARRA IZQUIERDA DE DATOS (Post-its rosas) -->
+        <!-- 1. BARRA IZQUIERDA DE DATOS (la llena el JS con los datos del astronauta) -->
         <aside id="panel-datos-izquierda" class="sidebar-datos">
         </aside>
 
         <!-- 2. ESPACIO CENTRAL PARA LA IMAGEN DEL CUERPO HUMANO -->
         <section id="panel-cuerpo-central" class="cuerpo-container">
             <div id="mapa-corporal" class="avatar-wrapper">
-                <!-- El JS cambia esta imagen según el sexo y el sistema seleccionado -->
+                <!-- El JS cambia estas imágenes según el sexo y el sistema seleccionado -->
                 <img src="img/maleBase.png" alt="Figura del cuerpo humano" id="img-cuerpo">
+                <img alt="" id="img-cabeza"  class="img-detalle">
+                <img alt="" id="img-torax"   class="img-detalle">
+                <img alt="" id="img-abdomen" class="img-detalle">
             </div>
         </section>
 
@@ -101,9 +104,6 @@
     <footer id="barra-inferior" class="bottom-nav">
         <button id="btn-exit" class="nav-btn btn-exit">Exit</button>
         <button id="btn-inicio" class="nav-btn active">Inicio</button>
-        <!--<button id="btn-recreativas" class="nav-btn">Actividades recreativas</button>-->
-         <!--<button id="btn-obligatorias" class="nav-btn">Actividades obligatorias</button> -->
-
         <button id="btn-recreativas" class="nav-btn" onclick="window.location.href='recreational.html'">Actividades recreativas</button>
         <button id="btn-obligatorias" class="nav-btn" onclick="window.location.href='health.html'">Actividades obligatorias</button>
     </footer>

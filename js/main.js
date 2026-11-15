@@ -1,157 +1,3 @@
-// // ==========================================
-// // LOGIN (solo se ejecuta si existe el formulario de login)
-// // ==========================================
-
-// // Lista temporal de claves de astronautas (luego Backend la conectará con MySQL)
-// const astronautas = [
-//     "123456",
-//     "234356",
-//     "987654"
-// ];
-
-// const inputClave = document.getElementById("input-clave");
-// const listaCoincidencias = document.getElementById("lista-coincidencias");
-// const btnLogin = document.getElementById("btn-login");
-// const formLogin = document.getElementById("form-login");
-
-// // Función para validar si la clave existe y está completa
-// function validarIngreso() {
-//     const valorActual = inputClave.value.trim();
-//     const existe = astronautas.includes(valorActual);
-
-//     // El botón se habilita solo si la clave coincide exactamente con la lista
-//     btnLogin.disabled = !existe;
-//     return existe;
-// }
-
-// if (inputClave && listaCoincidencias && btnLogin) {
-//     // Cada vez que el usuario teclea en el buscador
-//     inputClave.addEventListener("input", () => {
-//         const texto = inputClave.value.trim();
-//         listaCoincidencias.innerHTML = ""; // Limpiar lista anterior
-
-//         validarIngreso();
-
-//         if (texto === "") return;
-
-//         // Filtrar claves que contengan lo que se está escribiendo
-//         const filtrados = astronautas.filter(clave =>
-//             clave.includes(texto)
-//         );
-
-//         // Crear elementos de la lista desplegable
-//         filtrados.forEach(clave => {
-//             const li = document.createElement("li");
-//             li.textContent = clave;
-
-//             // Al hacer clic en una coincidencia, se rellena el input y valida
-//             li.addEventListener("click", () => {
-//                 inputClave.value = clave;
-//                 listaCoincidencias.innerHTML = "";
-//                 validarIngreso();
-//             });
-
-//             listaCoincidencias.appendChild(li);
-//         });
-//     });
-// }
-
-// // Acción al presionar "Ingresar al sistema"
-// if (formLogin) {
-//     formLogin.addEventListener("submit", (e) => {
-//         e.preventDefault();
-
-//         if (validarIngreso()) {
-//             // Guarda la clave activa para usarla en el dashboard
-//             localStorage.setItem("astronautaActivo", inputClave.value.trim());
-
-//             // Redirige al dashboard
-//             window.location.href = "main.html";
-//         }
-//     });
-// }
-
-
-// // ==========================================
-// // DASHBOARD (solo se ejecuta si existen estos elementos)
-// // ==========================================
-
-// const panelNotificaciones = document.getElementById("panel-notificaciones");
-// const panelTitulo = document.getElementById("panel-titulo");
-// const mainGrid = document.querySelector(".main-grid");
-// const imgCuerpo = document.getElementById("img-cuerpo");
-
-// // Cada elemento que abre el panel y el título que debe mostrar
-// const botonesPanel = {
-//     "card-personal-data": "Notificaciones",
-//     "sistema-sueno": "Sueño",
-//     "sistema-corazon": "Corazón",
-//     "sistema-oseo": "Óseo",
-//     "sistema-radiacion": "Radiación",
-//     "sistema-musculos": "Músculos",
-//     "sistema-metabolismo": "Metabolismo"
-// };
-
-// // Qué tema (degradado + PNJ) activa cada botón.
-// // Los botones que no están aquí usan el tema "inicio".
-// const temasPorBoton = {
-//     "sistema-oseo": "oseo",
-//     "sistema-radiacion": "radiacion",
-//     "sistema-musculos": "musculos"
-// };
-
-// // Imagen del PNJ según el tema y el sexo (archivos dentro de la carpeta img/)
-// const imagenesPnj = {
-//     inicio:    { mujer: "femaleBase.png",       hombre: "maleBase.png" },
-//     oseo:      { mujer: "femaleBoneStruct.png", hombre: "maleBoneStruct.png" },
-//     radiacion: { mujer: "femaleRadiation.png",  hombre: "maleRadiation.png" },
-//     musculos:  { mujer: "femaleMuscles.png",    hombre: "maleMuscles.png" }
-// };
-
-// // Lee el sexo desde el dato del dashboard (F = mujer, cualquier otro = hombre)
-// function obtenerSexo() {
-//     const dato = document.getElementById("dato-sexo");
-//     const texto = dato ? dato.textContent.trim().toUpperCase() : "";
-//     return texto === "F" ? "mujer" : "hombre";
-// }
-
-// // Cambia el degradado (vía data-tema en el CSS) y la imagen del PNJ
-// function aplicarTema(tema) {
-//     if (!mainGrid || !imgCuerpo) return;
-//     mainGrid.dataset.tema = tema;
-//     imgCuerpo.src = "img/" + imagenesPnj[tema][obtenerSexo()];
-// }
-
-// // Tema por defecto al entrar al dashboard
-// aplicarTema("inicio");
-
-// let panelActual = null; // id del botón que tiene abierto el panel
-
-// if (panelNotificaciones && panelTitulo) {
-//     Object.entries(botonesPanel).forEach(([id, titulo]) => {
-//         const boton = document.getElementById(id);
-//         if (!boton) return;
-
-//         boton.addEventListener("click", () => {
-//             // PERSONAL DATA (notificaciones) no cambia el fondo ni el PNJ
-//             const esSistema = id !== "card-personal-data";
-
-//             if (panelActual === id) {
-//                 // Segundo clic en el mismo botón: cerrar
-//                 panelNotificaciones.classList.remove("abierto");
-//                 panelActual = null;
-//                 if (esSistema) aplicarTema("inicio");
-//             } else {
-//                 // Abrir (o cambiar de título si ya estaba abierto)
-//                 panelTitulo.textContent = titulo;
-//                 panelNotificaciones.classList.add("abierto");
-//                 panelActual = id;
-//                 if (esSistema) aplicarTema(temasPorBoton[id] || "inicio");
-//             }
-//         });
-//     });
-// }
-
 // ==========================================
 // LOGIN (solo se ejecuta si existe el formulario de login)
 // ==========================================
@@ -186,7 +32,7 @@ async function cargarClaves() {
 // Función para validar si la clave existe y está completa
 function validarIngreso() {
     const valorActual = inputClave.value.trim();
-    const existe = listaClaves.includes(valorActual); // FIX #6
+    const existe = listaClaves.includes(valorActual);
 
     // El botón se habilita solo si la clave coincide exactamente con la lista
     btnLogin.disabled = !existe;
@@ -249,6 +95,8 @@ const panelNotificaciones = document.getElementById("panel-notificaciones");
 const panelTitulo = document.getElementById("panel-titulo");
 const mainGrid = document.querySelector(".main-grid");
 const imgCuerpo = document.getElementById("img-cuerpo");
+const DURACION_ZOOM = 1000;     // milisegundos: debe coincidir con el "1s" de transition en el CSS
+let temporizadorZoom = null;
 
 const botonesPanel = {
     "card-personal-data": "Notificaciones",
@@ -260,18 +108,35 @@ const botonesPanel = {
     "sistema-metabolismo": "Metabolismo"
 };
 
+// Qué tema (degradado + PNJ) activa cada botón.
 const temasPorBoton = {
+    "sistema-sueno": "sueno",
+    "sistema-corazon": "corazon",
     "sistema-oseo": "oseo",
     "sistema-radiacion": "radiacion",
-    "sistema-musculos": "musculos"
+    "sistema-musculos": "musculos",
+    "sistema-metabolismo": "metabolismo"
 };
 
 // Imagen del PNJ según el tema y el sexo (archivos dentro de la carpeta img/)
 const imagenesPnj = {
-    inicio:    { mujer: "femaleBase.png",       hombre: "maleBase.png" },
-    oseo:      { mujer: "femaleBoneStruct.png", hombre: "maleBoneStruct.png" },
-    radiacion: { mujer: "femaleRadiation.png",  hombre: "maleRadiation.png" },
-    musculos:  { mujer: "femaleMuscles.png",    hombre: "maleMuscles.png" }
+    inicio:      { mujer: "femaleBase.png",       hombre: "maleBase.png" },
+    sueno:       { mujer: "femaleBase.png",       hombre: "maleBase.png" },
+    corazon:     { mujer: "femaleBase.png",       hombre: "maleBase.png" },
+    metabolismo: { mujer: "femaleBase.png",       hombre: "maleBase.png" },
+    oseo:        { mujer: "femaleBoneStruct.png", hombre: "maleBoneStruct.png" },
+    radiacion:   { mujer: "femaleRadiation.png",  hombre: "maleRadiation.png" },
+    musculos:    { mujer: "femaleMuscles.png",    hombre: "maleMuscles.png" }
+};
+
+// Temas con acercamiento: clase de zoom, imagen que aparece encima y sus archivos
+const detallesPorTema = {
+    sueno:       { zoom: "zoom-sueno",       elemento: "img-cabeza",
+                   imagenes: { mujer: "femaleHead.png",   hombre: "maleHead.png" } },
+    corazon:     { zoom: "zoom-corazon",     elemento: "img-torax",
+                   imagenes: { mujer: "femaleTorax.png",  hombre: "maleTorax.png" } },
+    metabolismo: { zoom: "zoom-metabolismo", elemento: "img-abdomen",
+                   imagenes: { mujer: "femaleAbdomen.png", hombre: "maleAbdomen.png" } }
 };
 
 function obtenerSexo() {
@@ -280,11 +145,38 @@ function obtenerSexo() {
     return ["F", "FEMENINO", "MUJER"].includes(texto) ? "mujer" : "hombre";
 }
 
-// Cambia el degradado (vía data-tema en el CSS) y la imagen del PNJ
+// Cambia el degradado (vía data-tema en el CSS) y las imágenes del PNJ
 function aplicarTema(tema) {
     if (!mainGrid || !imgCuerpo) return;
+
+    const sexo = obtenerSexo();
+    const detalle = detallesPorTema[tema];   // undefined si el tema no tiene acercamiento
+
+    clearTimeout(temporizadorZoom);          // cancela una animación pendiente
+
     mainGrid.dataset.tema = tema;
-    imgCuerpo.src = "img/" + imagenesPnj[tema][obtenerSexo()];
+    imgCuerpo.src = "img/" + imagenesPnj[tema][sexo];
+
+    // Asigna (y precarga) las imágenes de detalle según el sexo
+    Object.values(detallesPorTema).forEach((d) => {
+        const el = document.getElementById(d.elemento);
+        if (el) el.src = "img/" + d.imagenes[sexo];
+    });
+
+    // Estado limpio: sin zoom, base visible y todas las imágenes de detalle ocultas
+    Object.values(detallesPorTema).forEach((d) => imgCuerpo.classList.remove(d.zoom));
+    imgCuerpo.classList.remove("oculta");
+    document.querySelectorAll(".img-detalle").forEach((el) => el.classList.remove("visible"));
+
+    // Si el tema tiene acercamiento: zoom y, al terminar, aparece la imagen encima
+    if (detalle) {
+        imgCuerpo.classList.add(detalle.zoom);
+        temporizadorZoom = setTimeout(() => {
+            imgCuerpo.classList.add("oculta");
+            const el = document.getElementById(detalle.elemento);
+            if (el) el.classList.add("visible");
+        }, DURACION_ZOOM);
+    }
 }
 
 // ------------------------------------------
