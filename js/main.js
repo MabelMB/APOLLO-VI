@@ -73,3 +73,4 @@ if (tarjetaPersonal && panelNotificaciones) {
         panelNotificaciones.classList.toggle('abierto');
     });
 }
+
