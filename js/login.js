@@ -25,6 +25,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         // Asignamos los datos a la variable (ajusta '.astronautas' si el PHP devuelve el arreglo directo)
         astronautasDB = Array.isArray(resultado) ? resultado : (resultado.astronautas || []);
+
+        console.log({
+            inputClave,
+            listaDropdown,
+            btnLogin,
+            formLogin
+        });
         
     } catch (error) {
         console.error('Error al cargar lista de astronautas:', error);
