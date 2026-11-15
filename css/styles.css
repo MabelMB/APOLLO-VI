@@ -349,7 +349,7 @@ body.dashboard-body {
     top: 0;
     right: 0;
     bottom: 55px;                /* deja libre la barra inferior */
-    width: 300px;
+    width: 400px;
     padding: 25px;
     background: rgba(4, 8, 17, 0.95);
     border-left: 1px solid rgba(56, 189, 248, 0.35);
@@ -371,7 +371,7 @@ body.dashboard-body {
     top: 0;
     right: 0;
     bottom: 55px;                /* deja libre la barra inferior */
-    width: 300px;
+    width: 400px;
     padding: 25px;
     background: rgba(4, 8, 17, 0.95);
     border-left: 1px solid rgba(56, 189, 248, 0.35);
