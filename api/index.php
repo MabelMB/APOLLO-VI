@@ -1,7 +1,4 @@
 <?php
-
-// FIX #8: evita que warnings/notices de PHP se impriman antes del JSON
-// y rompan response.json() en el navegador. Los errores van al log.
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
@@ -80,9 +77,6 @@ try {
         case 'devolver_astronauta':
             $clave = $data['idAstronauta'] ?? null;
             if (!empty($clave)) {
-                // FIX #1: se agregan a.idAstronauta y m.idMision al SELECT
-                //         (el código de abajo los usaba pero no se consultaban).
-                // FIX #2: se calcula "edad" desde fechaNacimiento.
                 $query = $db->prepare("
                     SELECT
                         a.idAstronauta,
@@ -165,22 +159,11 @@ try {
                     WHERE a.idAstronauta = ?
                 ");
                 $query->execute([$clave]);
-                $row = $query->fetchAll(PDO::FETCH_ASSOC);
-                if ($row) {
-                    $respuesta = [
-                        "validacion" => true,
-                        "fecha" => $row['fecha'],
-                        "idAliment" => $row['idAliment'],
-                        "estadoDesayuno" => $row['estadoDesayuno'],
-                        "estadoComida" => $row['estadoComida'],
-                        "estadoCena" => $row['estadoCena']
-                    ];
-                } else {
-                    $respuesta = [
-                        "validacion" => false,
-                        "error" => "Clave o ID de astronauta no encontrado"
-                    ];
-                }
+                $registros = $query->fetchAll(PDO::FETCH_ASSOC);
+                $respuesta = [
+                    "validacion" => true,
+                    "registros" => $registros
+                ];
             } else {
                 $respuesta = [
                     "validacion" => false,
@@ -195,7 +178,7 @@ try {
                 $query = $db->prepare("
                     SELECT
                         a.idAstronauta,
-                        r.idActRecreativa,
+                        r.idAct,
                         r.nombre,
                         r.descripcion,
                         r.horasDiarias,
@@ -207,24 +190,11 @@ try {
                     WHERE a.idAstronauta = ?
                 ");
                 $query->execute([$clave]);
-                $row = $query->fetchAll(PDO::FETCH_ASSOC);
-                if ($row) {
-                    $respuesta = [
-                        "validacion" => true,
-                        "clave" => $row['idAstronauta'],
-                        "nombre" => $row['nombre'],
-                        "descripcion" => $row['descripcion'],
-                        "horasDiarias" => $row['horasDiarias'],
-                        "fecha" => $row['fecha'],
-                        "estado" => $row['estado']
-
-                    ];
-                } else {
-                    $respuesta = [
-                        "validacion" => false,
-                        "error" => "Clave o ID de astronauta no encontrado"
-                    ];
-                }
+                $registros = $query->fetchAll(PDO::FETCH_ASSOC);
+                $respuesta = [
+                    "validacion" => true,
+                    "registros" => $registros
+                ];
             } else {
                 $respuesta = [
                     "validacion" => false,
@@ -240,25 +210,18 @@ try {
                     SELECT
                         h.idHidratacion,
                         h.litrosDia,
-                        h.fecha
+                        h.fecha,
+                        h.descripcion,
+                        h.estado
                     FROM hidratacion h
-                    JOIN actobligatoria o ON h.idAct = o.idAct
                     WHERE h.idAstronauta = ?
                 ");
                 $query->execute([$clave]);
-                $row = $query->fetch(PDO::FETCH_ASSOC);
-                if ($row) {
-                    $respuesta = [
-                        "validacion" => true,
-                        "fecha" => $row['fecha'],
-                        "litrosDia" => $row['litrosDia']
-                    ];
-                } else {
-                    $respuesta = [
-                        "validacion" => false,
-                        "error" => "Clave o ID de astronauta no encontrado"
-                    ];
-                }
+                $registros = $query->fetchAll(PDO::FETCH_ASSOC);
+                $respuesta = [
+                    "validacion" => true,
+                    "registros" => $registros
+                ];
             } else {
                 $respuesta = [
                     "validacion" => false,
@@ -268,38 +231,39 @@ try {
             break;
 
         case 'devolver_animo':
-            $clave = $data['idAstronauta'] ?? null;
-            if (!empty($clave)) {
-                $query = $db->prepare("
-                    SELECT
-                        a.idAnimo,
-                        a.fecha,
-                        a.estado
-                    FROM animo a
-                    JOIN actobligatoria o ON a.idAct = o.idAct
-                    WHERE a.idAstronauta = ?
-                ");
-                $query->execute([$clave]);
-                $row = $query->fetch(PDO::FETCH_ASSOC);
-                if ($row) {
-                    $respuesta = [
-                        "validacion" => true,
-                        "fecha" => $row['fecha'],
-                        "estado" => $row['estado']
-                    ];
-                } else {
-                    $respuesta = [
-                        "validacion" => false,
-                        "error" => "Clave o ID de astronauta no encontrado"
-                    ];
-                }
+        $clave = $data['idAstronauta'] ?? null;
+        if (!empty($clave)) {
+            $query = $db->prepare("
+                SELECT
+                    idAnimo,
+                    idAstronauta,
+                    descripcion,
+                    estado,
+                    fecha
+                FROM animo
+                WHERE idAstronauta = ?
+            ");
+            $query->execute([$clave]);
+            $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            if ($rows) {
+                $respuesta = [
+                    "validacion" => true,
+                    "registros" => $rows
+                ];
             } else {
                 $respuesta = [
                     "validacion" => false,
-                    "error" => "El ID de astronauta está vacío"
+                    "error" => "No se encontraron registros de ánimo"
                 ];
             }
-            break;
+        } else {
+            $respuesta = [
+                "validacion" => false,
+                "error" => "El ID de astronauta está vacío"
+            ];
+        }
+        break;
 
         case 'devolverActividadFísica':
             $clave = $data['idAstronauta'] ?? null;
@@ -307,31 +271,21 @@ try {
                 $query = $db->prepare("
                     SELECT
                         e.idEjercicio,
-                        e.idAct,
                         e.horasDuracion,
                         e.fecha,
                         e.estado,
                         e.peso,
                         e.nivelEsfuerzo,
                         e.descripcion
-                        o.nombre AS nombreActividad
                     FROM ejercicio e
-                    INNER JOIN actobligatoria o ON e.idAct = o.idAct
                     WHERE e.idAstronauta = ?
                 ");
                 $query->execute([$clave]);
-                $rows = $query->fetchAll(PDO::FETCH_ASSOC);
-                if ($rows) {
-                    $respuesta = [
-                        "validacion" => true,
-                        "registros" => $rows
-                    ];
-                } else {
-                    $respuesta = [
-                        "validacion" => false,
-                        "error" => "Clave o ID de astronauta no encontrado"
-                    ];
-                }
+                $registros = $query->fetchAll(PDO::FETCH_ASSOC);
+                $respuesta = [
+                    "validacion" => true,
+                    "registros" => $registros
+                ];
             } else {
                 $respuesta = [
                     "validacion" => false,
@@ -340,11 +294,12 @@ try {
             }
             break;
 
-        case 'notificacion':
+        case 'devolver_notificacion':
             $clave = $data['idAstronauta'] ?? null;
             if (!empty($clave)) {
                 $query = $db->prepare("
                     SELECT
+                        n.idNotificacion,
                         n.nombreCategoria,
                         n.nombreZona,
                         n.descripcion
@@ -352,20 +307,11 @@ try {
                     WHERE n.idAstronauta = ?
                 ");
                 $query->execute([$clave]);
-                $row = $query->fetch(PDO::FETCH_ASSOC);
-                if ($row) {
-                    $respuesta = [
-                        "validacion" => true,
-                        "nombreCategoria" => $row['nombreCategoria'],
-                        "nombreZona" => $row['nombreZona'],
-                        "descripcion" => $row['descripcion']
-                    ];
-                } else {
-                    $respuesta = [
-                        "validacion" => false,
-                        "error" => "Clave o ID de astronauta no encontrado"
-                    ];
-                }
+                $registros = $query->fetchAll(PDO::FETCH_ASSOC);
+                $respuesta = [
+                    "validacion" => true,
+                    "registros" => $registros
+                ];
             } else {
                 $respuesta = [
                     "validacion" => false,
@@ -498,7 +444,6 @@ try {
         case 'datos_radiacion':
             $clave = $data['idAstronauta'] ?? null;
             if (!empty($clave)) {
-                // FIX #7: faltaba la coma entre c.porcentajeCancer y c.estado
                 $query = $db->prepare("
                     SELECT
                         c.porcentajeCancer,
@@ -532,12 +477,9 @@ try {
         case 'datos_musculos':
             $clave = $data['idAstronauta'] ?? null;
             if (!empty($clave)) {
-                // FIX #7: verifica en tu BD si la columna se llama
-                // "masaMoscular" (como está) o "masaMuscular" (probable typo).
-                // Si es masaMuscular, cámbialo aquí y en el arreglo de abajo.
                 $query = $db->prepare("
                     SELECT
-                        e.masaMoscular,
+                        e.masaMuscular,
                         e.tejidoGrasa,
                         e.cambioMasa,
                         e.fuerzaMuscular,
@@ -551,7 +493,7 @@ try {
                 if ($row) {
                     $respuesta = [
                         "validacion" => true,
-                        "masaMoscular" => $row['masaMoscular'],
+                        "masaMuscular" => $row['masaMuscular'],
                         "tejidoGrasa" => $row['tejidoGrasa'],
                         "cambioMasa" => $row['cambioMasa'],
                         "fuerzaMuscular" => $row['fuerzaMuscular'],
@@ -590,7 +532,6 @@ try {
                 $query->execute([$clave]);
                 $row = $query->fetch(PDO::FETCH_ASSOC);
                 if ($row) {
-                    // FIX #7: "peso" estaba duplicado en el arreglo
                     $respuesta = [
                         "validacion" => true,
                         "nivelGlucosa" => $row['nivelGlucosa'],
@@ -610,6 +551,31 @@ try {
                 $respuesta = [
                     "validacion" => false,
                     "error" => "El ID de astronauta está vacío"
+                ];
+            }
+            break;
+
+        case 'eliminar_notificacion':
+            $idNotificacion = $data['idNotificacion'] ?? null;
+            if (!empty($idNotificacion)) {
+                $query = $db->prepare("DELETE FROM notificacion WHERE idNotificacion = ?");
+                $resultado = $query->execute([$idNotificacion]);
+
+                if ($resultado) {
+                    $respuesta = [
+                        "validacion" => true,
+                        "mensaje" => "Notificación eliminada correctamente"
+                    ];
+                } else {
+                    $respuesta = [
+                        "validacion" => false,
+                        "error" => "No se pudo eliminar el registro de la base de datos"
+                    ];
+                }
+            } else {
+                $respuesta = [
+                    "validacion" => false,
+                    "error" => "El ID de la notificación está vacío"
                 ];
             }
             break;

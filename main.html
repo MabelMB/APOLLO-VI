@@ -29,37 +29,37 @@
         <section id="panel-metricas-derecha" class="metricas-container">
             <div class="tabla-sistemas">
 
-                <div class="fila-sistema" id="sistema-sueno" onclick="abrirPanel('sueno')">
+                <div class="fila-sistema" id="sistema-sueno">
                     <div class="sistema-titulo">
                         <strong>Sueño</strong>
                     </div>
                 </div>
 
-                <div class="fila-sistema" id="sistema-corazon" onclick="abrirPanel('corazon')">
+                <div class="fila-sistema" id="sistema-corazon">
                     <div class="sistema-titulo">
                         <strong>Corazón</strong>
                     </div>
                 </div>
 
-                <div class="fila-sistema" id="sistema-oseo" onclick="abrirPanel('oseo')">
+                <div class="fila-sistema" id="sistema-oseo">
                     <div class="sistema-titulo">
                         <strong>Óseo</strong>
                     </div>
                 </div>
 
-                <div class="fila-sistema" id="sistema-radiacion" onclick="abrirPanel('radiacion')">
+                <div class="fila-sistema" id="sistema-radiacion">
                     <div class="sistema-titulo">
                         <strong>Radiación</strong>
                     </div>
                 </div>
 
-                <div class="fila-sistema" id="sistema-musculos" onclick="abrirPanel('musculos')">
+                <div class="fila-sistema" id="sistema-musculos">
                     <div class="sistema-titulo">
                         <strong>Músculos</strong>
                     </div>
                 </div>
 
-                <div class="fila-sistema" id="sistema-metabolismo" onclick="abrirPanel('metabolismo')">
+                <div class="fila-sistema" id="sistema-metabolismo">
                     <div class="sistema-titulo">
                         <strong>Metabolismo</strong>
                     </div>
@@ -93,116 +93,103 @@
 
     <script src="js/main.js"></script>
     <script>
-        const panel = document.getElementById('panel-notificaciones');
-        const contenidoDinamico = document.getElementById('contenido-panel-dinamico');
-        const tituloPanel = document.getElementById('panel-titulo');
-
         const datosPaneles = {
-            sueno: `
-                <h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 15px;">MONITOREO DE SUEÑO</h2>
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Ritmo circadiano</p>
-                <h3 id="val-ritmoCirc" style="color: #fff; font-size: 1.8rem; margin-bottom: 20px; font-weight: 300;">7.6 H</h3>
+        //     sueno: `
+        //         <h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 15px;">MONITOREO DE SUEÑO</h2>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Ritmo circadiano</p>
+        //         <h3 id="val-ritmoCirc" style="color: #fff; font-size: 1.8rem; margin-bottom: 20px; font-weight: 300;">7.6 H</h3>
                 
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Tiempo de sueño (Por episodio)</p>
-                <div style="width: 100%; height: 12px; background: #161b22; margin-bottom: 15px; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 85%; height: 100%; background: #d1d5db;"></div></div>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Tiempo de sueño (Por episodio)</p>
+        //         <div style="width: 100%; height: 12px; background: #161b22; margin-bottom: 15px; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 85%; height: 100%; background: #d1d5db;"></div></div>
 
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Latencia del sueño</p>
-                <div style="width: 100%; height: 12px; background: #161b22; margin-bottom: 15px; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 65%; height: 100%; background: #d1d5db;"></div></div>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Latencia del sueño</p>
+        //         <div style="width: 100%; height: 12px; background: #161b22; margin-bottom: 15px; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 65%; height: 100%; background: #d1d5db;"></div></div>
 
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Calidad del sueño</p>
-                <div style="width: 100%; height: 12px; background: #161b22; margin-bottom: 20px; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 90%; height: 100%; background: #d1d5db;"></div></div>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Calidad del sueño</p>
+        //         <div style="width: 100%; height: 12px; background: #161b22; margin-bottom: 20px; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 90%; height: 100%; background: #d1d5db;"></div></div>
 
-                <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                    <div><span style="color: #9ca3af; font-size: 0.75rem;">Regularidad</span><h4 id="val-regularidadSue" style="color:#fff; font-size: 1rem;">76%</h4></div>
-                    <div><span style="color: #9ca3af; font-size: 0.75rem;">Fragmentación</span><h4 id="val-fragmentacionSue" style="color:#fff; font-size: 1rem;">21%</h4></div>
-                </div>
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-top: 10px;">Presión intracraneal: <strong id="val-presionIntrac" style="color:#fff;">8.90 mmHg</strong></p>
-            `,
-            corazon: `
-                <h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 15px;">CORAZÓN</h2>
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Frecuencia cardíaca</p>
-                <h3 id="val-frecuenciaCard" style="color: #fff; font-size: 2rem; margin-bottom: 25px; font-weight: 300;">90 BPM</h3>
+        //         <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+        //             <div><span style="color: #9ca3af; font-size: 0.75rem;">Regularidad</span><h4 id="val-regularidadSue" style="color:#fff; font-size: 1rem;">76%</h4></div>
+        //             <div><span style="color: #9ca3af; font-size: 0.75rem;">Fragmentación</span><h4 id="val-fragmentacionSue" style="color:#fff; font-size: 1rem;">21%</h4></div>
+        //         </div>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-top: 10px;">Presión intracraneal: <strong id="val-presionIntrac" style="color:#fff;">8.90 mmHg</strong></p>
+        //     `,
+        //     corazon: `
+        //         <h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 15px;">CORAZÓN</h2>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Frecuencia cardíaca</p>
+        //         <h3 id="val-frecuenciaCard" style="color: #fff; font-size: 2rem; margin-bottom: 25px; font-weight: 300;">90 BPM</h3>
 
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Performance cardiovascular</p>
-                <h3 id="val-cardiovascular" style="color: #fff; font-size: 2rem; font-weight: 300;">5 L/min</h3>
-            `,
-            oseo: `
-                <h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 15px;">MASA ÓSEA</h2>
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Densidad ósea</p>
-                <h3 id="val-densidadOsea" style="color: #fff; font-size: 1.8rem; margin-bottom: 20px; font-weight: 300;">1.4 g/cm²</h3>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Performance cardiovascular</p>
+        //         <h3 id="val-cardiovascular" style="color: #fff; font-size: 2rem; font-weight: 300;">5 L/min</h3>
+        //     `,
+        //     oseo: `
+        //         <h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 15px;">MASA ÓSEA</h2>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Densidad ósea</p>
+        //         <h3 id="val-densidadOsea" style="color: #fff; font-size: 1.8rem; margin-bottom: 20px; font-weight: 300;">1.4 g/cm²</h3>
 
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Densimetría ósea</p>
-                <div style="width: 100%; height: 12px; background: #161b22; margin-bottom: 10px; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 70%; height: 100%; background: #d1d5db;"></div></div>
-                <h4 id="val-factorDensi" style="color: #fff; font-size: 1.2rem; margin-bottom: 15px; font-weight: 300;">+0.3</h4>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Densimetría ósea</p>
+        //         <div style="width: 100%; height: 12px; background: #161b22; margin-bottom: 10px; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 70%; height: 100%; background: #d1d5db;"></div></div>
+        //         <h4 id="val-factorDensi" style="color: #fff; font-size: 1.2rem; margin-bottom: 15px; font-weight: 300;">+0.3</h4>
 
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Riesgo</p>
-                <div style="width: 100%; height: 12px; background: #161b22; margin-bottom: 20px; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 45%; height: 100%; background: #d1d5db;"></div></div>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Riesgo</p>
+        //         <div style="width: 100%; height: 12px; background: #161b22; margin-bottom: 20px; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 45%; height: 100%; background: #d1d5db;"></div></div>
 
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Carga aplicada &amp; Resistencia</p>
-                <div style="width: 100%; height: 12px; background: #161b22; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 80%; height: 100%; background: #d1d5db;"></div></div>
-            `,
-            radiacion: `
-                <h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 10px;">RADIATION</h2>
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Exceso de Riesgo de Cáncer de por Vida(ELCR)</p>
-                <span style="color: #22c55e; font-size: 0.95rem; display: block; margin-bottom: 15px; font-weight: 500;">No amenazante</span>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Carga aplicada &amp; Resistencia</p>
+        //         <div style="width: 100%; height: 12px; background: #161b22; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 80%; height: 100%; background: #d1d5db;"></div></div>
+        //     `,
+        //     radiacion: `
+        //         <h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 10px;">RADIATION</h2>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Exceso de Riesgo de Cáncer de por Vida(ELCR)</p>
+        //         <span style="color: #22c55e; font-size: 0.95rem; display: block; margin-bottom: 15px; font-weight: 500;">No amenazante</span>
                 
-                <!-- Gráfica SVG 100% redonda -->
-                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 5px;">
-                    <div style="width: 140px; height: 140px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(34,197,94,0.2);">
-                        <svg width="140" height="140" viewBox="0 0 36 36" style="transform: rotate(-90deg);">
-                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#22c55e" stroke-width="32"></path>
-                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0.5 0 a 15.9155 15.9155 0 0 1 -0.5 0" fill="none" stroke="#ef4444" stroke-width="32" stroke-dasharray="0.2 100"></path>
-                        </svg>
-                    </div>
-                    <span id="val-elcr" style="color: #cbd5e1; font-size: 1rem; margin-top: 15px; font-weight: 500;">0.005 %</span>
-                </div>
-            `,
-            musculos: `
-                <h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 15px;">MASA MUSCULAR</h2>
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Masa muscular</p>
-                <h3 id="val-masaMuscular" style="color: #fff; font-size: 1.8rem; margin-bottom: 15px; font-weight: 300;">30 kg (15%)</h3>
+        //         <!-- Gráfica SVG 100% redonda -->
+        //         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 5px;">
+        //             <div style="width: 140px; height: 140px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(34,197,94,0.2);">
+        //                 <svg width="140" height="140" viewBox="0 0 36 36" style="transform: rotate(-90deg);">
+        //                     <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#22c55e" stroke-width="32"></path>
+        //                     <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0.5 0 a 15.9155 15.9155 0 0 1 -0.5 0" fill="none" stroke="#ef4444" stroke-width="32" stroke-dasharray="0.2 100"></path>
+        //                 </svg>
+        //             </div>
+        //             <span id="val-elcr" style="color: #cbd5e1; font-size: 1rem; margin-top: 15px; font-weight: 500;">0.005 %</span>
+        //         </div>
+        //     `,
+        //     musculos: `
+        //         <h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 15px;">MASA MUSCULAR</h2>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Masa muscular</p>
+        //         <h3 id="val-masaMuscular" style="color: #fff; font-size: 1.8rem; margin-bottom: 15px; font-weight: 300;">30 kg (15%)</h3>
 
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Cambio neto en la masa corporal (-1.4)</p>
-                <div style="width: 100%; height: 12px; background: #161b22; margin-bottom: 20px; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 50%; height: 100%; background: #d1d5db;"></div></div>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Cambio neto en la masa corporal (-1.4)</p>
+        //         <div style="width: 100%; height: 12px; background: #161b22; margin-bottom: 20px; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 50%; height: 100%; background: #d1d5db;"></div></div>
 
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Fuerza Máxima (300N)</p>
-                <div style="width: 100%; height: 12px; background: #161b22; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 65%; height: 100%; background: #d1d5db;"></div></div>
-            `,
-            metabolismo: `
-                <h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 15px;">METABOLISMO</h2>
-                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Niveles de glucosa</p>
-                <h3 id="val-glucosa" style="color: #fff; font-size: 1.6rem; margin-bottom: 20px; font-weight: 300;">90 mg/dL</h3>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Fuerza Máxima (300N)</p>
+        //         <div style="width: 100%; height: 12px; background: #161b22; border-radius: 3px; border: 1px solid rgba(56,189,248,0.2); overflow:hidden;"><div style="width: 65%; height: 100%; background: #d1d5db;"></div></div>
+        //     `,
+        //     metabolismo: `
+        //         <h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 15px;">METABOLISMO</h2>
+        //         <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px;">Niveles de glucosa</p>
+        //         <h3 id="val-glucosa" style="color: #fff; font-size: 1.6rem; margin-bottom: 20px; font-weight: 300;">90 mg/dL</h3>
 
-                <div style="display: flex; gap: 30px; margin-bottom: 25px;">
-                    <div><span style="color: #9ca3af; font-size: 0.75rem;">MASA CORPORAL</span><h4 id="val-peso" style="color:#fff; font-size: 1.1rem;">62 kg</h4></div>
-                    <div><span style="color: #9ca3af; font-size: 0.75rem;">ALTURA</span><h4 id="val-altura" style="color:#fff; font-size: 1.1rem;">1.72 m</h4></div>
-                </div>
+        //         <div style="display: flex; gap: 30px; margin-bottom: 25px;">
+        //             <div><span style="color: #9ca3af; font-size: 0.75rem;">MASA CORPORAL</span><h4 id="val-peso" style="color:#fff; font-size: 1.1rem;">62 kg</h4></div>
+        //             <div><span style="color: #9ca3af; font-size: 0.75rem;">ALTURA</span><h4 id="val-altura" style="color:#fff; font-size: 1.1rem;">1.72 m</h4></div>
+        //         </div>
 
-                <!-- Metabolismo rediseñado y espaciado para que no se encime -->
-                <div style="display: flex; justify-content: space-around; align-items: flex-end; margin-top: 15px; height: 150px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
-                    <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
-                        <span style="color:#ffffff; font-size:0.8rem; margin-bottom: 8px; font-weight: 500;">2,500 kcal</span>
-                        <div style="width: 18px; height: 95px; background: #d1d5db; border-radius: 2px;"></div>
-                        <span style="color:#cbd5e1; font-size:0.75rem; margin-top: 8px;">Ingesta de calorías</span>
-                    </div>
-                    <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
-                        <span style="color:#ffffff; font-size:0.8rem; margin-bottom: 8px; font-weight: 500;">2,700 kcal</span>
-                        <div style="width: 18px; height: 120px; background: #d1d5db; border-radius: 2px;"></div>
-                        <span style="color:#cbd5e1; font-size:0.75rem; margin-top: 8px;">Gasto de energía</span>
-                    </div>
-                </div>
-            `
+        //         <!-- Metabolismo rediseñado y espaciado para que no se encime -->
+        //         <div style="display: flex; justify-content: space-around; align-items: flex-end; margin-top: 15px; height: 150px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+        //             <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+        //                 <span style="color:#ffffff; font-size:0.8rem; margin-bottom: 8px; font-weight: 500;">2,500 kcal</span>
+        //                 <div style="width: 18px; height: 95px; background: #d1d5db; border-radius: 2px;"></div>
+        //                 <span style="color:#cbd5e1; font-size:0.75rem; margin-top: 8px;">Ingesta de calorías</span>
+        //             </div>
+        //             <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+        //                 <span style="color:#ffffff; font-size:0.8rem; margin-bottom: 8px; font-weight: 500;">2,700 kcal</span>
+        //                 <div style="width: 18px; height: 120px; background: #d1d5db; border-radius: 2px;"></div>
+        //                 <span style="color:#cbd5e1; font-size:0.75rem; margin-top: 8px;">Gasto de energía</span>
+        //             </div>
+        //         </div>
+        //     `
         };
 
-        function abrirPanel(tipo) {
-            tituloPanel.textContent = tipo.toUpperCase();
-            contenidoDinamico.innerHTML = datosPaneles[tipo] || '<p>Información no disponible</p>';
-            panel.classList.add('abierto');
-        }
-
-        function cerrarPanel() {
-            panel.classList.remove('abierto');
-        }
     </script>
 </body>
 </html>
