@@ -5,11 +5,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const listaDropdown = document.getElementById('lista-coincidencias');
     const btnLogin = document.getElementById('btn-login');
     const formLogin = document.getElementById('form-login');
+    const contenedorAlertas = document.getElementById('contenedor-alertas');
 
-    // Ruta del archivo PHP
     const API = 'api/index.php';
 
-    if (!inputClave || !listaDropdown || !btnLogin || !formLogin) {
+    if (!inputClave || !listaDropdown || !btnLogin || !formLogin || !contenedorAlertas) {
         console.error('Falta algún elemento del formulario en login.html');
         return;
     }
@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     btnLogin.disabled = true;
 
+    const mostrarError = (mensaje) => {
+        contenedorAlertas.textContent = mensaje;
+    };
 
     // 1. OBTENER LA LISTA DE ASTRONAUTAS
     try {
@@ -38,19 +41,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             throw new Error(resultado.error || 'Error en el servidor');
         }
 
-        if (resultado.validacion === true) {
-
-            astronautasDB = resultado.astronautas || [];
-
-        } else {
-
-            console.error('Error al obtener astronautas:', resultado.error);
-
+        if (resultado.validacion !== true || !Array.isArray(resultado.astronautas)) {
+            throw new Error(resultado.error || 'No se pudo obtener la lista de astronautas.');
         }
+
+        astronautasDB = resultado.astronautas;
 
     } catch (error) {
 
         console.error('Error al cargar lista de astronautas:', error);
+        mostrarError('No se pudo cargar la lista de astronautas. Verifica la conexión con el servidor y la base de datos.');
 
     }
 
@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (data.validacion === true) {
 
                 sessionStorage.setItem('idAstronauta', idSeleccionado);
+                localStorage.setItem('astronautaActivo', idSeleccionado);
 
                 sessionStorage.setItem(
                     'datosAstronauta',
@@ -143,7 +144,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             } else {
 
-                alert(data.error || 'Acceso denegado. No se pudo validar el astronauta.');
+                mostrarError(data.error || 'Acceso denegado. No se pudo validar el astronauta.');
 
             }
 
@@ -151,7 +152,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             console.error('Error en validación:', error);
 
-            alert('No fue posible comunicarse con el servidor.');
+            mostrarError('No fue posible comunicarse con el servidor. Verifica que Apache y MySQL estén activos.');
 
         }
 

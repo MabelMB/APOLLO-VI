@@ -15,9 +15,9 @@
             <h1 class="login-title">APOLLO-VI</h1>
             <p class="login-subtitle">Monitoreo de Salud de Astronautas</p>
 
-            <form id="form-login" class="login-form" action="php/login.php" method="POST" autocomplete="off">
+            <form id="form-login" class="login-form" action="api/index.php?action=validar_login" method="POST" autocomplete="off">
                 <div class="search-wrapper">
-                    <input type="number" id="input-clave" class="apollo-input" name="clave" placeholder="clave de busqueda" required>
+                    <input type="number" id="input-clave" class="apollo-input" name="idAstronauta" placeholder="clave de busqueda" required>
                     
                     <!-- Lista de coincidencias con clases de componentes -->
                     <ul id="lista-coincidencias" class="apollo-dropdown"></ul>
@@ -26,7 +26,7 @@
                 <button type="submit" id="btn-login" class="apollo-btn" disabled>Ingresar al sistema</button>
             </form>
 
-            <div id="contenedor-alertas"></div>
+            <div id="contenedor-alertas" role="alert" aria-live="polite"></div>
         </div>
     </main>
 

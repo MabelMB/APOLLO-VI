@@ -11,12 +11,31 @@ class Conexion {
     private $puerto;
 
     public function __construct() {
-        $this->host = '127.0.0.1';
-        $this->db = 'hackathon';
-        $this->usuario = 'root';
-        $this->pass = '';
+        $rutaEnv = dirname(__DIR__) . '/.env';
+        $configEnv = [];
+
+        if (is_file($rutaEnv)) {
+            $configEnv = parse_ini_file($rutaEnv, false, INI_SCANNER_RAW);
+            if ($configEnv === false) {
+                throw new RuntimeException('No se pudo leer el archivo .env');
+            }
+        }
+
+        $configurar = static function ($clave, $valorPredeterminado) use ($configEnv) {
+            $valor = getenv($clave);
+            if ($valor === false || $valor === '') {
+                $valor = $configEnv[$clave] ?? '';
+            }
+
+            return $valor !== '' ? trim($valor) : $valorPredeterminado;
+        };
+
+        $this->host = $configurar('DB_HOST', '127.0.0.1');
+        $this->db = $configurar('DB_NAME', 'hackathon');
+        $this->usuario = $configurar('DB_USER', 'root');
+        $this->pass = $configurar('DB_PASSWORD', '');
         $this->charset = 'utf8mb4';
-        $this->puerto = '3307';
+        $this->puerto = $configurar('DB_PORT', '3307');
     }
 
     public function conectar() {
